@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Image from "next/image"
 import { Facebook, Linkedin, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react"
 
 const footerSections = [
@@ -38,8 +37,6 @@ const footerSections = [
 export function Footer() {
   return (
     <footer className="bg-[#603C2D] text-white relative">
-      {/* Moroccan pattern overlay */}
-      <div className="absolute inset-0 zellige-pattern-dark pointer-events-none" />
       
       {/* Moroccan decorative top border */}
       <div className="h-2 w-full bg-[#FF9000]" />
@@ -73,13 +70,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand column */}
           <div>
-            <Image
-              src="/images/logo-batimag-white.png"
-              alt="BATIMAG"
-              width={150}
-              height={55}
-              className="h-12 w-auto mb-4"
-            />
+            <div className="mb-4">
+              <span className="font-serif font-bold text-3xl text-white tracking-tight">
+                BATI<span className="text-[#FF9000]">MAG</span>
+              </span>
+              <p className="text-white/50 text-xs mt-0.5 tracking-widest uppercase">1ere Plateforme Africaine du BTP</p>
+            </div>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
               La plateforme media et business de reference pour le secteur de la construction, des infrastructures et de l'immobilier en Afrique.
             </p>

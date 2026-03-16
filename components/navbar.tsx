@@ -56,14 +56,9 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0">
-            <Image
-              src="/images/logo-batimag-white.png"
-              alt="BATIMAG"
-              width={140}
-              height={50}
-              className="h-10 w-auto"
-              priority
-            />
+            <span className="font-serif font-bold text-2xl text-white tracking-tight">
+              BATI<span className="text-[#FF9000]">MAG</span>
+            </span>
           </Link>
 
           {/* Desktop nav */}
