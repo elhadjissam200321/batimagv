@@ -11,8 +11,7 @@ const navLinks = [
     href: "/actualites",
     children: [
       { label: "Actualités BTP", href: "/actualites" },
-      { label: "Événements & Salons", href: "/actualites#evenements" },
-      { label: "Appels d'offres", href: "/actualites#appels-offres" },
+      { label: "Événements & Salons", href: "/evenements" },
     ],
   },
   { label: "Annuaire Entreprises", href: "/annuaire" },
