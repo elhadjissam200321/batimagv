@@ -163,7 +163,7 @@ export default function ActualitesPage() {
           <div className="lg:col-span-2">
             {/* Featured article */}
             <div className="mb-8">
-              <Link href="#" className="group block border border-border overflow-hidden hover:shadow-lg transition-shadow">
+              <Link href={`/actualites/${main.id}`} className="group block border border-border overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="relative h-72 overflow-hidden">
                   <Image
                     src={main.image}
@@ -201,7 +201,7 @@ export default function ActualitesPage() {
             <SectionHeader title="Dernières actualités" />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {rest.map((article) => (
-                <Link key={article.id} href="#" className="group border border-border overflow-hidden hover:shadow-md transition-shadow">
+                <Link key={article.id} href={`/actualites/${article.id}`} className="group border border-border overflow-hidden hover:shadow-md transition-shadow">
                   <div className="relative h-40 overflow-hidden">
                     <Image
                       src={article.image}
