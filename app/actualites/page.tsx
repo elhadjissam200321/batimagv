@@ -33,27 +33,6 @@ export default async function ActualitesPage() {
 
   const main = articles[0]
   const rest = articles.slice(1)
-    featured: false,
-  },
-  {
-    id: 5,
-    category: "Matériaux",
-    title: "L'industrie du ciment africain atteint un record de production avec 120 millions de tonnes en 2025",
-    excerpt: "La production continentale de ciment a franchi un cap historique grâce aux investissements massifs dans les nouvelles capacités de production.",
-    image: "/images/news-1.jpg",
-    readTime: "3 min",
-    date: "7 mars 2026",
-    featured: false,
-  },
-  {
-    id: 6,
-    category: "Réglementation",
-    title: "Adoption d'un code de la construction harmonisé pour l'espace CEDEAO",
-    excerpt: "Les 15 États membres de la CEDEAO ont adopté un référentiel commun de normes de construction pour faciliter les échanges et améliorer la sécurité.",
-    image: "/images/news-2.jpg",
-    readTime: "6 min",
-    date: "6 mars 2026",
-]
 
 const events = [
   {
