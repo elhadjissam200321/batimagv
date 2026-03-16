@@ -24,12 +24,13 @@ const popularTags = ["Gros Œuvre", "Architectes", "Cimenterie", "Énergie Solai
 export default async function AnnuairePage() {
   const supabase = await createClient()
   
-  const { data: companies = [] } = await supabase
+  const { data } = await supabase
     .from("companies")
     .select("*")
     .order("is_premium", { ascending: false })
     .limit(20)
 
+  const companies = data || []
   const premiumCompanies = companies.filter((c: any) => c.is_premium)
   const regularCompanies = companies.filter((c: any) => !c.is_premium)
 

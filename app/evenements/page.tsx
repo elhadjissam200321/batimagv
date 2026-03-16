@@ -8,11 +8,12 @@ import { createClient } from "@/lib/supabase/server"
 export default async function EvenementsPage() {
   const supabase = await createClient()
   
-  const { data: events = [] } = await supabase
+  const { data } = await supabase
     .from("events")
     .select("*")
     .order("start_date", { ascending: true })
 
+  const events = data || []
   const featuredEvent = events.find((e: any) => e.is_featured) || events[0]
   const upcomingEvents = events.filter((e: any) => e.id !== featuredEvent?.id)
 
