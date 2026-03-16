@@ -1,38 +1,63 @@
+'use client';
+
 import Link from "next/link"
 import Image from "next/image"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { createClient } from "@/lib/supabase/server"
+import { useState, useMemo } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import useSWR from "swr"
+import { ChevronRight, ChevronLeft, Search, X } from "lucide-react"
 
-export const metadata = {
-  title: "Annuaire B2B du Bâtiment | BATIMAG",
-  description:
-    "Trouvez vos partenaires, fournisseurs et prestataires au Maroc et en Afrique.",
-}
+const fetcher = (url: string) => fetch(url).then(res => res.json())
 
-const sectors = [
-  { icon: "fa-solid fa-hard-hat", label: "Gros Œuvre" },
-  { icon: "fa-solid fa-paint-roller", label: "Second Œuvre" },
-  { icon: "fa-solid fa-road", label: "Travaux Publics" },
-  { icon: "fa-solid fa-bolt", label: "Lots Techniques" },
-  { icon: "fa-solid fa-drafting-compass", label: "Ingénierie" },
-  { icon: "fa-solid fa-cogs", label: "Équipements" },
+const sectorOptions = [
+  { icon: "fa-solid fa-hard-hat", label: "Gros Œuvre", slug: "gros-oeuvre" },
+  { icon: "fa-solid fa-paint-roller", label: "Second Œuvre", slug: "second-oeuvre" },
+  { icon: "fa-solid fa-road", label: "Travaux Publics", slug: "travaux-publics" },
+  { icon: "fa-solid fa-bolt", label: "Lots Techniques", slug: "lots-techniques" },
+  { icon: "fa-solid fa-drafting-compass", label: "Ingénierie", slug: "ingenierie" },
+  { icon: "fa-solid fa-cogs", label: "Équipements", slug: "equipements" },
 ]
 
-const popularTags = ["Gros Œuvre", "Architectes", "Cimenterie", "Énergie Solaire"]
+const ITEMS_PER_PAGE = 9
 
-export default async function AnnuairePage() {
-  const supabase = await createClient()
+export default function AnnuairePage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
+  const [selectedSector, setSelectedSector] = useState(searchParams.get('sector') || '')
+  const currentPage = parseInt(searchParams.get('page') || '1')
+
+  const { data: companiesData } = useSWR(
+    `/api/companies?search=${encodeURIComponent(searchTerm)}&sector=${encodeURIComponent(selectedSector)}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`,
+    fetcher
+  )
+
+  const { data: sectorsData } = useSWR('/api/sectors', fetcher)
   
-  const { data } = await supabase
-    .from("companies")
-    .select("*")
-    .order("is_premium", { ascending: false })
-    .limit(20)
+  const premiumCompanies = useMemo(() => {
+    return (companiesData?.data || []).filter((c: any) => c.is_premium).slice(0, 3)
+  }, [companiesData])
 
-  const companies = data || []
-  const premiumCompanies = companies.filter((c: any) => c.is_premium)
-  const regularCompanies = companies.filter((c: any) => !c.is_premium)
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    router.push(`/annuaire?search=${encodeURIComponent(searchTerm)}&sector=${encodeURIComponent(selectedSector)}&page=1`)
+  }
+
+  const handleSectorClick = (sectorSlug: string) => {
+    setSelectedSector(sectorSlug)
+    router.push(`/annuaire?search=${encodeURIComponent(searchTerm)}&sector=${encodeURIComponent(sectorSlug)}&page=1`)
+  }
+
+  const handlePageChange = (page: number) => {
+    router.push(`/annuaire?search=${encodeURIComponent(searchTerm)}&sector=${encodeURIComponent(selectedSector)}&page=${page}`)
+  }
+
+  const totalPages = companiesData?.totalPages || 1
+  const companies = companiesData?.data || []
+  const sectors = sectorsData?.data || []
+  const total = companiesData?.total || 0
 
   return (
     <div className="min-h-screen bg-secondary font-sans text-primary">
@@ -40,8 +65,7 @@ export default async function AnnuairePage() {
 
       {/* Hero Search */}
       <section className="relative flex min-h-[420px] w-full items-center justify-center overflow-hidden bg-primary px-4 py-20">
-        <div
-          className="absolute inset-0 opacity-10"
+        <div className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: "url('/images/hero-construction.jpg')",
             backgroundSize: "cover",
@@ -60,44 +84,25 @@ export default async function AnnuairePage() {
           </p>
 
           {/* Search Bar */}
-          <div className="flex flex-col overflow-hidden rounded-xl bg-white shadow-2xl md:flex-row">
+          <form onSubmit={handleSearch} className="flex flex-col overflow-hidden rounded-xl bg-white shadow-2xl md:flex-row">
             <div className="flex flex-1 items-center gap-2 border-b border-slate-200 px-4 py-3 md:border-b-0 md:border-r">
-              <i className="fa-solid fa-search text-slate-400"></i>
+              <Search className="w-5 h-5 text-slate-400" />
               <input
                 type="text"
                 placeholder="Entreprise, produit ou service..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full border-none bg-transparent text-sm text-primary placeholder:text-slate-400 focus:outline-none"
               />
             </div>
-            <div className="flex flex-1 items-center gap-2 px-4 py-3">
-              <i className="fa-solid fa-location-dot text-slate-400"></i>
-              <select className="w-full cursor-pointer appearance-none border-none bg-transparent text-sm text-primary focus:outline-none">
-                <option>Tout le Maroc</option>
-                <option>Afrique du Nord</option>
-                <option>Afrique de l&apos;Ouest</option>
-                <option>International</option>
-              </select>
-              <i className="fa-solid fa-chevron-down text-slate-400 text-xs"></i>
-            </div>
-            <button className="flex shrink-0 items-center justify-center gap-2 bg-primary px-8 py-4 text-sm font-bold text-white transition-colors hover:bg-primary/90">
-              <i className="fa-solid fa-search"></i>
+            <button 
+              type="submit"
+              className="flex shrink-0 items-center justify-center gap-2 bg-primary px-8 py-4 text-sm font-bold text-white transition-colors hover:bg-primary/90"
+            >
+              <Search className="w-4 h-4" />
               Rechercher
             </button>
-          </div>
-
-          {/* Popular Tags */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-slate-400">
-            <span className="font-medium">Populaire :</span>
-            {popularTags.map((tag) => (
-              <a
-                key={tag}
-                href="#"
-                className="underline underline-offset-2 transition-colors hover:text-white"
-              >
-                {tag}
-              </a>
-            ))}
-          </div>
+          </form>
         </div>
       </section>
 
@@ -113,21 +118,30 @@ export default async function AnnuairePage() {
               Naviguez à travers nos catégories professionnelles spécialisées
             </p>
           </div>
-          <a
-            href="#"
-            className="whitespace-nowrap text-sm font-bold text-primary underline underline-offset-2 transition-colors hover:text-accent"
+          <Link
+            href="/annuaire/secteurs"
+            className="whitespace-nowrap text-sm font-bold text-primary underline underline-offset-2 transition-colors hover:text-accent flex items-center gap-1"
           >
-            Voir tous les secteurs
-          </a>
+            Voir tous les secteurs <ChevronRight className="w-4 h-4" />
+          </Link>
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {sectors.map(({ icon, label }) => (
+          {sectorOptions.map(({ icon, label, slug }) => (
             <button
-              key={label}
-              className="group flex cursor-pointer flex-col items-center gap-4 rounded-xl border border-border bg-white p-6 transition-all hover:border-primary hover:shadow-lg"
+              key={slug}
+              onClick={() => handleSectorClick(slug)}
+              className={`group flex cursor-pointer flex-col items-center gap-4 rounded-xl border transition-all p-6 ${
+                selectedSector === slug
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border bg-white hover:border-primary hover:shadow-lg'
+              }`}
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+              <div className={`flex h-12 w-12 items-center justify-center rounded-full transition-colors ${
+                selectedSector === slug
+                  ? 'bg-primary text-white'
+                  : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white'
+              }`}>
                 <i className={`${icon} text-lg`}></i>
               </div>
               <span className="text-center text-sm font-bold text-primary">{label}</span>
@@ -180,7 +194,7 @@ export default async function AnnuairePage() {
                           <i className="fa-solid fa-check-circle text-blue-500"></i>
                         )}
                       </div>
-                      <p className="text-sm text-muted-foreground truncate">{company.category}</p>
+                      <p className="text-sm text-muted-foreground truncate">{company.sector}</p>
                       <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <i className="fa-solid fa-location-dot text-accent"></i>
@@ -201,7 +215,7 @@ export default async function AnnuairePage() {
                       <i className="fa-solid fa-crown"></i> Premium
                     </span>
                     <span className="text-accent text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Voir le profil <i className="fa-solid fa-arrow-right"></i>
+                      Voir le profil <ChevronRight className="w-4 h-4" />
                     </span>
                   </div>
                 </Link>
@@ -217,65 +231,114 @@ export default async function AnnuairePage() {
           <div className="mb-8 flex items-center justify-between">
             <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
               <i className="fa-solid fa-building text-accent"></i>
-              Toutes les entreprises
+              Résultats
             </h2>
-            <span className="text-sm text-muted-foreground">{companies.length} entreprises</span>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {regularCompanies.map((company: any) => (
-              <Link
-                key={company.id}
-                href={`/annuaire/${company.slug}`}
-                className="group flex flex-col rounded-xl bg-white border border-border p-5 transition-all hover:shadow-lg hover:border-accent/40"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  {company.logo ? (
-                    <Image
-                      src={company.logo}
-                      alt={company.name}
-                      width={56}
-                      height={56}
-                      className="rounded-lg border border-border"
-                    />
-                  ) : (
-                    <div className="size-14 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <i className="fa-solid fa-building text-primary text-xl"></i>
-                    </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <h3 className="truncate font-bold text-primary group-hover:text-accent transition-colors">
-                        {company.name}
-                      </h3>
-                      {company.is_verified && (
-                        <i className="fa-solid fa-check-circle text-blue-500 text-sm"></i>
-                      )}
-                    </div>
-                    <p className="text-sm text-muted-foreground truncate">{company.category}</p>
-                  </div>
-                </div>
-                <p className="text-sm text-muted-foreground line-clamp-2 mb-4">{company.description}</p>
-                <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1">
-                    <i className="fa-solid fa-location-dot text-accent"></i>
-                    {company.city}, {company.country}
-                  </span>
-                  {company.rating && (
-                    <span className="flex items-center gap-1">
-                      <i className="fa-solid fa-star text-accent"></i>
-                      {company.rating}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            ))}
+            <span className="text-sm text-muted-foreground">{total} entreprises trouvées</span>
           </div>
 
-          {companies.length === 0 && (
+          {companies.length > 0 ? (
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {companies.map((company: any) => (
+                  <Link
+                    key={company.id}
+                    href={`/annuaire/${company.slug}`}
+                    className="group flex flex-col rounded-xl bg-white border border-border p-5 transition-all hover:shadow-lg hover:border-accent/40"
+                  >
+                    <div className="flex items-start gap-4 mb-4">
+                      {company.logo ? (
+                        <Image
+                          src={company.logo}
+                          alt={company.name}
+                          width={56}
+                          height={56}
+                          className="rounded-lg border border-border"
+                        />
+                      ) : (
+                        <div className="size-14 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <i className="fa-solid fa-building text-primary text-xl"></i>
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <h3 className="truncate font-bold text-primary group-hover:text-accent transition-colors">
+                            {company.name}
+                          </h3>
+                          {company.is_verified && (
+                            <i className="fa-solid fa-check-circle text-blue-500 text-sm"></i>
+                          )}
+                        </div>
+                        <p className="text-sm text-muted-foreground truncate">{company.sector}</p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">{company.description}</p>
+                    <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <i className="fa-solid fa-location-dot text-accent"></i>
+                        {company.city}, {company.country}
+                      </span>
+                      {company.rating && (
+                        <span className="flex items-center gap-1">
+                          <i className="fa-solid fa-star text-accent"></i>
+                          {company.rating}
+                        </span>
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mb-8">
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="p-2 rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                    const pageNum = Math.max(1, currentPage - 2) + i;
+                    return pageNum <= totalPages ? pageNum : null;
+                  }).filter(Boolean).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page as number)}
+                      className={`w-10 h-10 rounded-lg transition ${
+                        currentPage === page
+                          ? 'bg-primary text-white'
+                          : 'border border-border hover:bg-muted'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="p-2 rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              )}
+            </>
+          ) : (
             <div className="text-center py-16 bg-white rounded-xl border border-border">
-              <i className="fa-solid fa-building text-5xl text-muted-foreground mb-4"></i>
+              <i className="fa-solid fa-search text-5xl text-muted-foreground mb-4"></i>
               <h3 className="text-xl font-semibold text-primary mb-2">Aucune entreprise trouvée</h3>
-              <p className="text-muted-foreground">Revenez bientôt pour découvrir notre annuaire.</p>
+              <p className="text-muted-foreground mb-6">Essayez une autre recherche ou réinitialisez les filtres</p>
+              <button
+                onClick={() => {
+                  setSearchTerm('')
+                  setSelectedSector('')
+                  router.push('/annuaire')
+                }}
+                className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition"
+              >
+                Réinitialiser les filtres
+              </button>
             </div>
           )}
         </div>
