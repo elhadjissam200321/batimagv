@@ -18,7 +18,7 @@ const libreBaskerville = Libre_Baskerville({
 })
 
 export const metadata: Metadata = {
-  title: 'BATIMAG – La référence média & business de la construction en Afrique',
+  title: 'BATIMAG - La référence média & business de la construction en Afrique',
   description: 'BATIMAG est la plateforme média et business de référence pour le secteur de la construction, des infrastructures et de l\'immobilier en Afrique.',
   keywords: 'construction Afrique, BTP Afrique, infrastructure Afrique, immobilier Afrique, génie civil',
   openGraph: {
