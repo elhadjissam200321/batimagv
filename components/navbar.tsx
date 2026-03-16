@@ -15,6 +15,7 @@ const navLinks = [
     ],
   },
   { label: "Annuaire Entreprises", href: "/annuaire" },
+  { label: "Offres Immobilières", href: "/offres-immobilieres" },
   { label: "Formations", href: "/formations" },
   { label: "Offres d'Emploi", href: "/emplois" },
   { label: "À Propos", href: "/a-propos" },
