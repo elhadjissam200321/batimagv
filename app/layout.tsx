@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { DM_Sans, Playfair_Display } from 'next/font/google'
+import { DM_Sans, Libre_Baskerville } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -10,11 +10,11 @@ const dmSans = DM_Sans({
   weight: ['400', '500', '600', '700'],
 })
 
-const playfair = Playfair_Display({
+const libreBaskerville = Libre_Baskerville({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-libre-baskerville',
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
 })
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" className={`${dmSans.variable} ${playfair.variable}`}>
+    <html lang="fr" className={`${dmSans.variable} ${libreBaskerville.variable}`}>
       <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning>
         {children}
         <Analytics />

@@ -4,54 +4,53 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* BATIMAG Moroccan Brand Colors */
+  /* BATIMAG Brand Colors - Professional Editorial Moroccan Identity */
   --brand-orange: #FF9000;
   --brand-brown: #603C2D;
-  --brand-cream: #FFF8F0;
-  --brand-sand: #F5E6D3;
-  --brand-terracotta: #C4724A;
-  --brand-gold: #D4A574;
+  --brand-white: #FFFFFF;
+  --brand-neutral: #F6F3EF;
+  --brand-border: #E6DED6;
 
   /* Semantic Tokens */
-  --background: #ffffff;
+  --background: #FFFFFF;
   --foreground: #603C2D;
-  --card: #ffffff;
+  --card: #FFFFFF;
   --card-foreground: #603C2D;
-  --popover: #ffffff;
+  --popover: #FFFFFF;
   --popover-foreground: #603C2D;
   --primary: #603C2D;
-  --primary-foreground: #ffffff;
-  --secondary: #FFF8F0;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F6F3EF;
   --secondary-foreground: #603C2D;
-  --muted: #F5E6D3;
-  --muted-foreground: #8B6F5C;
+  --muted: #F6F3EF;
+  --muted-foreground: #8B7355;
   --accent: #FF9000;
-  --accent-foreground: #ffffff;
+  --accent-foreground: #FFFFFF;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: #E8D5C4;
-  --input: #E8D5C4;
+  --border: #E6DED6;
+  --input: #E6DED6;
   --ring: #FF9000;
-  --radius: 0.5rem;
+  --radius: 0.25rem;
   --chart-1: #FF9000;
   --chart-2: #603C2D;
-  --chart-3: #C4724A;
-  --chart-4: #D4A574;
-  --chart-5: #F5E6D3;
+  --chart-3: #8B7355;
+  --chart-4: #C4A882;
+  --chart-5: #F6F3EF;
   --sidebar: #603C2D;
-  --sidebar-foreground: #ffffff;
+  --sidebar-foreground: #FFFFFF;
   --sidebar-primary: #FF9000;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #7A4E3D;
-  --sidebar-accent-foreground: #ffffff;
+  --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: #7A4E3D;
   --sidebar-ring: #FF9000;
 }
 
 @theme inline {
-  /* Typography - Playfair Display for headings (elegant, Moroccan-compatible), DM Sans for body */
+  /* Typography - Libre Baskerville for headings (editorial), DM Sans for body */
   --font-sans: var(--font-dm-sans), 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  --font-serif: var(--font-libre-baskerville), 'Libre Baskerville', Georgia, serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
   
   /* Colors */
@@ -80,11 +79,11 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
   
-  /* Radius - slightly rounded for Moroccan arches aesthetic */
+  /* Radius - minimal for professional editorial look */
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
-  --radius-lg: calc(var(--radius) + 4px);
-  --radius-xl: calc(var(--radius) + 8px);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
   
   /* Sidebar */
   --color-sidebar: var(--sidebar);
@@ -99,10 +98,7 @@
   /* Brand custom tokens */
   --color-orange: var(--brand-orange);
   --color-brown: var(--brand-brown);
-  --color-cream: var(--brand-cream);
-  --color-sand: var(--brand-sand);
-  --color-terracotta: var(--brand-terracotta);
-  --color-gold: var(--brand-gold);
+  --color-neutral: var(--brand-neutral);
 }
 
 @layer base {
@@ -117,48 +113,74 @@
   }
   h1, h2, h3 {
     @apply font-serif font-bold leading-tight tracking-tight;
+    color: #603C2D;
   }
   h4, h5, h6 {
     @apply font-sans font-semibold leading-tight;
+    color: #603C2D;
   }
 }
 
-/* Moroccan Zellige Pattern Background */
+/* Subtle Moroccan Zellige Pattern - 3-5% opacity for readability */
 .zellige-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23FF9000' fill-opacity='0.08'%3E%3Cpath d='M40 0L0 40L40 80L80 40L40 0zM40 10L70 40L40 70L10 40L40 10z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23603C2D' fill-opacity='0.035'%3E%3Cpath d='M60 0L120 60L60 120L0 60L60 0zM60 15L105 60L60 105L15 60L60 15z'/%3E%3Cpath d='M60 30L90 60L60 90L30 60L60 30zM60 40L80 60L60 80L40 60L60 40z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.zellige-pattern-light {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23FF9000' fill-opacity='0.04'%3E%3Cpath d='M60 0L120 60L60 120L0 60L60 0zM60 15L105 60L60 105L15 60L60 15z'/%3E%3Cpath d='M60 30L90 60L60 90L30 60L60 30zM60 40L80 60L60 80L40 60L60 40z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .zellige-pattern-dark {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.06'%3E%3Cpath d='M40 0L0 40L40 80L80 40L40 0zM40 10L70 40L40 70L10 40L40 10z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.04'%3E%3Cpath d='M60 0L120 60L60 120L0 60L60 0zM60 15L105 60L60 105L15 60L60 15z'/%3E%3Cpath d='M60 30L90 60L60 90L30 60L60 30zM60 40L80 60L60 80L40 60L60 40z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Moroccan Star Pattern */
-.moroccan-star {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23FF9000' fill-opacity='0.1'%3E%3Cpolygon points='30,0 37,22 60,22 42,36 49,58 30,44 11,58 18,36 0,22 23,22'/%3E%3C/g%3E%3C/svg%3E");
+/* Moroccan 8-point Star Pattern - very subtle */
+.moroccan-star-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23603C2D' fill-opacity='0.03'%3E%3Cpath d='M40 0L45 15L60 15L48 25L53 40L40 30L27 40L32 25L20 15L35 15L40 0z'/%3E%3Cpath d='M40 40L45 55L60 55L48 65L53 80L40 70L27 80L32 65L20 55L35 55L40 40z'/%3E%3Cpath d='M0 40L5 55L20 55L8 65L13 80L0 70L-13 80L-8 65L-20 55L-5 55L0 40z' transform='translate(0,0)'/%3E%3Cpath d='M80 40L85 55L100 55L88 65L93 80L80 70L67 80L72 65L60 55L75 55L80 40z' transform='translate(0,0)'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Decorative Border Pattern */
-.moroccan-border {
-  background-image: linear-gradient(90deg, #FF9000 25%, transparent 25%), 
-                    linear-gradient(90deg, transparent 75%, #FF9000 75%);
-  background-size: 8px 2px;
-  background-repeat: repeat-x;
+/* Professional Section Separator */
+.section-separator {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #E6DED6, transparent);
 }
 
-.moroccan-border-vertical {
-  background-image: linear-gradient(180deg, #FF9000 25%, transparent 25%), 
-                    linear-gradient(180deg, transparent 75%, #FF9000 75%);
-  background-size: 2px 8px;
-  background-repeat: repeat-y;
-}
-
-/* Arch decoration - Moroccan doorway style */
-.moroccan-arch {
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+.section-separator::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: #FF9000;
 }
 
 /* Selection color */
 ::selection {
   background-color: #FF9000;
   color: white;
+}
+
+/* Button Styles */
+.btn-primary {
+  @apply bg-[#FF9000] text-white font-semibold px-6 py-2.5 transition-colors;
+}
+.btn-primary:hover {
+  background-color: #E68200;
+}
+
+.btn-secondary {
+  @apply bg-[#603C2D] text-white font-semibold px-6 py-2.5 transition-colors;
+}
+.btn-secondary:hover {
+  background-color: #7A4E3D;
+}
+
+.btn-outline {
+  @apply border border-[#603C2D] text-[#603C2D] font-semibold px-6 py-2.5 transition-colors bg-transparent;
+}
+.btn-outline:hover {
+  @apply bg-[#603C2D] text-white;
 }
