@@ -41,6 +41,17 @@ export function Navbar() {
             <Link href="/contact" className="text-white/50 text-xs hover:text-[#F28C28] transition-colors">
               Publicité
             </Link>
+            <a
+              href="http://digiflyagency.ma/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 bg-[#F28C28]/20 border border-[#F28C28]/40 text-[#F28C28] text-xs font-semibold px-2.5 py-0.5 hover:bg-[#F28C28] hover:text-white transition-colors"
+            >
+              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              Services Digitaux
+            </a>
           </div>
         </div>
       </div>

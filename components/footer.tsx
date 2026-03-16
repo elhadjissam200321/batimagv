@@ -113,6 +113,36 @@ export function Footer() {
         </div>
       </div>
 
+      {/* Digifly Digital Partner band */}
+      <div className="border-t border-white/10 bg-[#0a1820]">
+        <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-[#F28C28] flex items-center justify-center shrink-0">
+              <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div>
+              <p className="text-white/90 text-sm font-semibold">Partenaire Digital</p>
+              <p className="text-white/50 text-xs">Site conçu et développé par Digifly Agency</p>
+            </div>
+          </div>
+          <a
+            href="http://digiflyagency.ma/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 border border-[#F28C28] text-[#F28C28] text-sm font-semibold px-5 py-2 hover:bg-[#F28C28] hover:text-white transition-colors whitespace-nowrap"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Visiter Digifly Agency
+          </a>
+        </div>
+      </div>
+
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
