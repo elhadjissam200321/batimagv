@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { MapPin, Building2, Clock, ArrowRight } from "lucide-react"
 import { SectionHeader } from "@/components/section-header"
+import { ZelligeBorder } from "@/components/moroccan-patterns"
 
 const jobs = [
   {
@@ -66,8 +67,13 @@ const contractColors: Record<string, string> = {
 
 export function JobsPreview() {
   return (
-    <section className="py-14 bg-background">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-16 bg-background relative overflow-hidden">
+      {/* Decorative zellige background */}
+      <div className="absolute inset-0 opacity-3 pointer-events-none">
+        <ZelligeBorder size="large" className="w-full h-full" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         <SectionHeader
           title="Offres d'Emploi BTP"
           subtitle="Les meilleures opportunités du secteur en Afrique"
@@ -80,22 +86,22 @@ export function JobsPreview() {
             <Link
               key={job.id}
               href="/emplois"
-              className="group border border-border p-5 hover:border-[#F28C28] hover:shadow-md transition-all bg-background"
+              className="group border-l-4 border-moroccan-accent/50 hover:border-moroccan-accent p-5 hover:shadow-lg transition-all bg-white rounded-r-lg"
             >
               <div className="flex items-start justify-between gap-2 mb-3">
-                <div className="w-10 h-10 bg-secondary flex items-center justify-center shrink-0">
-                  <Building2 className="w-5 h-5 text-[#F28C28]" />
+                <div className="w-10 h-10 bg-moroccan-accent/10 flex items-center justify-center shrink-0 rounded-md">
+                  <Building2 className="w-5 h-5 text-moroccan-accent" />
                 </div>
                 <span
-                  className={`text-xs font-bold px-2.5 py-1 ${contractColors[job.contract] ?? "bg-gray-100 text-gray-700"}`}
+                  className={`text-xs font-bold px-2.5 py-1 rounded ${contractColors[job.contract] ?? "bg-gray-100 text-gray-700"}`}
                 >
                   {job.contract}
                 </span>
               </div>
-              <h4 className="text-sm font-bold text-foreground mb-1 leading-snug group-hover:text-[#F28C28] transition-colors">
+              <h4 className="text-sm font-bold text-foreground mb-1 leading-snug group-hover:text-moroccan-accent transition-colors font-serif">
                 {job.title}
               </h4>
-              <p className="text-[#F28C28] text-xs font-semibold mb-3">{job.company}</p>
+              <p className="text-moroccan-accent text-xs font-semibold mb-3">{job.company}</p>
               <div className="space-y-1">
                 <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
                   <MapPin className="w-3.5 h-3.5 shrink-0" />
@@ -113,7 +119,7 @@ export function JobsPreview() {
         <div className="text-center">
           <Link
             href="/emplois"
-            className="inline-flex items-center gap-2 bg-[#0E1F2F] text-white text-sm font-bold px-8 py-3.5 hover:bg-[#F28C28] transition-colors"
+            className="inline-flex items-center gap-2 bg-moroccan-primary text-white font-bold px-8 py-3.5 hover:bg-orange-600 transition-colors rounded-lg"
           >
             Voir toutes les offres d'emploi
             <ArrowRight className="w-4 h-4" />
