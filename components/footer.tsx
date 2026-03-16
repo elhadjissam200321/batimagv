@@ -16,7 +16,7 @@ const footerSections = [
     title: "Nos Services",
     links: [
       { label: "Actualités BTP", href: "/actualites" },
-      { label: "Événements & Salons", href: "/actualites#evenements" },
+      { label: "Événements & Salons", href: "/evenements" },
       { label: "Annuaire Entreprises", href: "/annuaire" },
       { label: "Formations", href: "/formations" },
       { label: "Offres d'Emploi", href: "/emplois" },
