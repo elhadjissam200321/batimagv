@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { ArrowLeft, Bookmark, Share2, Clock, Eye, ChevronRight, Download } from "lucide-react"
 
 interface ArticleDetailPageProps {
   params: Promise<{ id: string }>
@@ -14,7 +15,6 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
 
   const supabase = await createClient()
 
-  // Fetch the article by slug
   const { data: article, error } = await supabase
     .from("articles")
     .select("*")
@@ -25,14 +25,301 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
     notFound()
   }
 
-  // Fetch related articles
-  const { data: relatedArticles = [] } = await supabase
+  const { data: relatedRaw } = await supabase
     .from("articles")
     .select("*")
     .neq("id", article.id)
     .limit(3)
 
+  const relatedArticles = relatedRaw || []
+
+  const publishedDate = new Date(article.published_at).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })
+
   return (
+    <div className="min-h-screen flex flex-col font-sans">
+      <Navbar />
+
+      {/* ── DESKTOP ─────────────────────────────────────────── */}
+      <main className="hidden lg:flex flex-grow bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+          <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8">
+            <Link href="/actualites" className="hover:text-accent transition-colors">Actualités</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-accent font-medium">{article.category}</span>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-primary font-medium line-clamp-1">{article.title}</span>
+          </nav>
+
+          <div className="grid grid-cols-12 gap-12">
+            <div className="col-span-8">
+              <article>
+                <span className="inline-block bg-accent text-white px-3 py-1 text-xs font-bold uppercase tracking-widest rounded mb-4">
+                  {article.category}
+                </span>
+                <h1 className="text-5xl font-extrabold text-primary leading-tight mb-6 text-balance">
+                  {article.title}
+                </h1>
+                <div className="flex items-center gap-4 border-y border-slate-200 py-4 mb-8">
+                  <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-primary font-bold text-lg">
+                      {(article.author_name || "B")[0]}
+                    </span>
+                  </div>
+                  <div className="flex-grow">
+                    <p className="text-sm font-bold text-primary">{article.author_name || "BATIMAG"}</p>
+                    <p className="text-xs text-slate-500">{article.author_title || "Équipe Éditoriale"}</p>
+                  </div>
+                  <div className="flex items-center gap-4 text-xs text-slate-500">
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5" />
+                      {article.reading_time || "5"} min de lecture
+                    </span>
+                    <span>{publishedDate}</span>
+                  </div>
+                </div>
+                <div className="rounded-2xl overflow-hidden mb-10 shadow-xl aspect-video relative">
+                  {article.cover_image ? (
+                    <Image src={article.cover_image} alt={article.title} fill className="object-cover" priority />
+                  ) : (
+                    <div className="bg-slate-200 w-full h-full" />
+                  )}
+                </div>
+                <div className="prose prose-slate max-w-none text-lg leading-relaxed space-y-6">
+                  <p className="font-semibold text-xl text-slate-700">{article.excerpt}</p>
+                  <p>{article.content || "Le contenu de l'article sera affiché ici."}</p>
+                </div>
+                <div className="mt-16 p-8 bg-primary rounded-2xl text-white flex flex-col md:flex-row items-center justify-between gap-8">
+                  <div className="max-w-md">
+                    <h3 className="text-2xl font-bold mb-2">Rapport Spécial : {article.category}</h3>
+                    <p className="text-slate-300 text-sm">Téléchargez notre analyse exclusive sur les tendances du secteur en Afrique.</p>
+                  </div>
+                  <button className="whitespace-nowrap bg-accent hover:bg-orange-500 text-white px-8 py-4 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0">
+                    <Download className="w-4 h-4" /> TÉLÉCHARGER
+                  </button>
+                </div>
+              </article>
+            </div>
+
+            <aside className="col-span-4 space-y-10">
+              <div className="p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h4 className="text-lg font-bold text-primary mb-4 border-b border-slate-100 pb-2">Newsletter BATIMAG</h4>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">Recevez chaque semaine l'essentiel de l'actualité BTP en Afrique.</p>
+                <form className="space-y-3">
+                  <input className="w-full px-4 py-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent" placeholder="votre@email.com" type="email" />
+                  <button className="w-full bg-primary text-white font-bold py-3 rounded-lg text-sm hover:bg-primary/90 transition-colors">S'INSCRIRE</button>
+                </form>
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-primary mb-6">Les plus lus</h4>
+                <div className="space-y-6">
+                  {relatedArticles.slice(0, 3).map((related, idx) => (
+                    <Link key={related.id} href={`/actualites/${related.slug}`} className="group flex gap-4">
+                      <span className="text-3xl font-black text-slate-200 group-hover:text-accent transition-colors">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <h5 className="font-bold text-sm leading-snug group-hover:text-accent transition-colors">{related.title}</h5>
+                        <p className="text-xs text-slate-500 mt-1">{related.reading_time || "5"} min de lecture</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </main>
+
+      {/* ── MOBILE ──────────────────────────────────────────── */}
+      <div className="lg:hidden flex flex-col bg-[#f8f9fa]">
+
+        {/* Full-bleed Hero */}
+        <div className="relative w-full h-[55vw] min-h-[220px] max-h-[340px] bg-slate-900">
+          {article.cover_image ? (
+            <Image src={article.cover_image} alt={article.title} fill className="object-cover opacity-80" priority />
+          ) : (
+            <div className="bg-primary w-full h-full" />
+          )}
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+
+          {/* Top bar */}
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 pt-4">
+            <Link href="/actualites" className="flex items-center justify-center w-9 h-9 rounded-full bg-black/30 backdrop-blur-sm text-white">
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+            <div className="flex items-center gap-2">
+              <button className="flex items-center justify-center w-9 h-9 rounded-full bg-black/30 backdrop-blur-sm text-white">
+                <Bookmark className="w-4 h-4" />
+              </button>
+              <button className="flex items-center justify-center w-9 h-9 rounded-full bg-black/30 backdrop-blur-sm text-white">
+                <Share2 className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Category + title over image */}
+          <div className="absolute bottom-0 left-0 right-0 px-5 pb-5">
+            <span className="inline-block bg-accent text-white text-[11px] font-black uppercase tracking-widest px-2.5 py-1 rounded mb-3">
+              {article.category}
+            </span>
+            <h1 className="text-white text-2xl font-extrabold leading-tight text-balance line-clamp-3">
+              {article.title}
+            </h1>
+          </div>
+        </div>
+
+        {/* Author strip */}
+        <div className="bg-white border-b border-slate-100 px-5 py-3 flex items-center gap-3">
+          <div className="size-9 rounded-full bg-primary flex items-center justify-center shrink-0">
+            <span className="text-white font-bold text-sm">{(article.author_name || "B")[0]}</span>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold text-primary truncate">{article.author_name || "BATIMAG"}</p>
+            <p className="text-[11px] text-slate-500 truncate">{article.author_title || "Équipe Éditoriale"}</p>
+          </div>
+          <div className="flex items-center gap-3 text-[11px] text-slate-400 shrink-0">
+            <span className="flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              {article.reading_time || "5"} min
+            </span>
+            <span className="flex items-center gap-1">
+              <Eye className="w-3 h-3" />
+              {article.view_count ?? "—"}
+            </span>
+          </div>
+        </div>
+
+        {/* Meta chips */}
+        <div className="bg-white px-5 pt-3 pb-4 flex items-center gap-2 border-b border-slate-100 overflow-x-auto">
+          <span className="shrink-0 text-[11px] text-slate-400 font-medium">{publishedDate}</span>
+          <span className="shrink-0 w-1 h-1 rounded-full bg-slate-300" />
+          {[article.category, "BTP", "Afrique"].filter(Boolean).map((tag) => (
+            <span key={tag} className="shrink-0 bg-primary/8 text-primary text-[11px] font-semibold px-2.5 py-1 rounded-full border border-primary/10">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Body */}
+        <div className="bg-white mx-4 mt-4 rounded-2xl shadow-sm overflow-hidden">
+          {/* Excerpt / lead */}
+          <div className="px-5 pt-6 pb-5 border-b border-slate-100">
+            <p className="text-base font-semibold text-slate-700 leading-relaxed italic">
+              {article.excerpt}
+            </p>
+          </div>
+
+          {/* Content */}
+          <div className="px-5 pt-5 pb-8">
+            <p className="text-[15px] text-slate-600 leading-[1.75]">
+              {article.content || "Le contenu complet de l'article sera affiché ici."}
+            </p>
+          </div>
+        </div>
+
+        {/* Share actions */}
+        <div className="mx-4 mt-4 bg-white rounded-2xl shadow-sm p-5">
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Partager cet article</p>
+          <div className="flex items-center gap-3">
+            {[
+              { label: "Facebook", bg: "bg-[#1877F2]", icon: "f" },
+              { label: "Twitter/X", bg: "bg-[#0f0f0f]", icon: "𝕏" },
+              { label: "WhatsApp", bg: "bg-[#25D366]", icon: "W" },
+              { label: "LinkedIn", bg: "bg-[#0A66C2]", icon: "in" },
+            ].map(({ label, bg, icon }) => (
+              <button key={label} className={`${bg} text-white w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-sm flex-1`}>
+                {icon}
+              </button>
+            ))}
+            <button className="bg-slate-100 text-slate-600 w-10 h-10 rounded-full flex items-center justify-center flex-1">
+              <Share2 className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Download CTA */}
+        <div className="mx-4 mt-4 rounded-2xl overflow-hidden">
+          <div className="bg-primary px-5 py-6 relative">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+            <div className="relative z-10">
+              <span className="text-accent text-xs font-black uppercase tracking-wider">Dossier Spécial</span>
+              <h3 className="text-white text-lg font-extrabold mt-1 mb-2 text-balance">{article.category} — Rapport Exclusif</h3>
+              <p className="text-slate-400 text-sm mb-4 leading-relaxed">Analyse complète des tendances du secteur BTP en Afrique. Gratuit.</p>
+              <button className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-orange-500 text-white font-bold py-3 rounded-xl transition-colors">
+                <Download className="w-4 h-4" />
+                Télécharger le PDF
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Related articles */}
+        {relatedArticles.length > 0 && (
+          <div className="mx-4 mt-6 mb-8">
+            <div className="flex items-center gap-3 mb-4">
+              <h2 className="text-base font-extrabold text-primary uppercase tracking-wide">À lire aussi</h2>
+              <div className="flex-1 h-px bg-slate-200" />
+            </div>
+            <div className="space-y-3">
+              {relatedArticles.map((related) => (
+                <Link
+                  key={related.id}
+                  href={`/actualites/${related.slug}`}
+                  className="flex gap-4 bg-white rounded-2xl p-4 shadow-sm active:opacity-80 transition-opacity"
+                >
+                  <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-slate-100 relative">
+                    {related.cover_image ? (
+                      <Image src={related.cover_image} alt={related.title} fill className="object-cover" />
+                    ) : (
+                      <div className="w-full h-full bg-primary/10 flex items-center justify-center">
+                        <span className="text-primary/40 text-2xl font-black">{(related.category || "B")[0]}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col justify-center gap-1 min-w-0">
+                    <span className="text-[10px] font-black text-accent uppercase tracking-widest">{related.category}</span>
+                    <h4 className="text-sm font-bold text-primary leading-snug line-clamp-2">{related.title}</h4>
+                    <div className="flex items-center gap-2 text-[11px] text-slate-400 mt-0.5">
+                      <Clock className="w-3 h-3" />
+                      <span>{related.reading_time || "5"} min de lecture</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Newsletter */}
+        <div className="mx-4 mb-8 bg-slate-900 rounded-2xl p-6">
+          <h3 className="text-white font-extrabold text-base mb-1">Newsletter BATIMAG</h3>
+          <p className="text-slate-400 text-sm mb-4 leading-relaxed">L'essentiel du BTP africain, chaque semaine dans votre boite mail.</p>
+          <form className="flex flex-col gap-3">
+            <input
+              type="email"
+              placeholder="votre@email.com"
+              className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+            <button className="w-full bg-accent text-white font-bold py-3 rounded-xl text-sm hover:bg-orange-500 transition-colors">
+              S'inscrire gratuitement
+            </button>
+          </form>
+        </div>
+
+      </div>
+      {/* ── END MOBILE ─────────────────────────────────────── */}
+
+      <Footer />
+    </div>
+  )
+}
+
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
