@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { Menu, X, ChevronDown, Search } from "lucide-react"
 
 const navLinks = [
   { label: "Accueil", href: "/" },
@@ -25,6 +25,8 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
 
   return (
     <header className="w-full bg-[#0E1F2F] sticky top-0 z-50 shadow-md">
@@ -100,12 +102,46 @@ export function Navbar() {
 
           {/* CTA + Mobile toggle */}
           <div className="flex items-center gap-3">
+            {/* Search */}
+            <div className="relative hidden md:block">
+              <button
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="text-white/80 hover:text-[#F28C28] p-2 transition-colors"
+                aria-label="Rechercher"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+              {searchOpen && (
+                <div className="absolute top-full right-0 mt-2 w-64 bg-white shadow-xl rounded-lg z-50">
+                  <input
+                    type="text"
+                    placeholder="Rechercher..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full px-4 py-3 rounded-t-lg border-0 focus:outline-none focus:ring-2 focus:ring-[#F28C28]"
+                    autoFocus
+                  />
+                  <div className="p-3 border-t border-slate-200">
+                    <p className="text-xs text-slate-600 text-center">Recherchez articles, entreprises...</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <Link
               href="/emplois"
               className="hidden md:inline-flex items-center bg-[#F28C28] text-white text-sm font-semibold px-4 py-2 hover:bg-orange-600 transition-colors"
             >
-              Offres d'emploi
+              Publier une offre
             </Link>
+
+            <Link
+              href="/annuaire"
+              className="hidden md:inline-flex items-center bg-white/10 text-white text-sm font-semibold px-4 py-2 border border-white/20 hover:bg-white/20 transition-colors"
+            >
+              Référencer mon entreprise
+            </Link>
+
             <button
               className="lg:hidden text-white p-1"
               onClick={() => setMobileOpen(!mobileOpen)}
