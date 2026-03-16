@@ -4,50 +4,35 @@ import { Clock, MapPin, Calendar, Search, ArrowRight, ChevronRight } from "lucid
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { SectionHeader } from "@/components/section-header"
+import { createClient } from "@/lib/supabase/server"
 
 const categories = [
-  "Tous", "Bâtiment", "Infrastructures", "Génie Civil", "Matériaux", "Équipements", "Énergie", "Immobilier", "Réglementation",
+  "Tous", "Infrastructures", "Bâtiment", "Génie Civil", "Matériaux", "Énergie", "Réglementation",
 ]
 
-const articles = [
-  {
-    id: 1,
-    category: "Infrastructures",
-    title: "Le Maroc lance un méga-projet autoroutier de 12 milliards de dirhams reliant Casablanca à Dakhla",
-    excerpt: "Le gouvernement marocain a officiellement lancé les travaux du plus grand projet routier de son histoire, une autoroute de 1 400 km.",
-    image: "/images/news-1.jpg",
-    readTime: "4 min",
-    date: "12 mars 2026",
-    featured: true,
-  },
-  {
-    id: 2,
-    category: "Bâtiment",
-    title: "Abidjan : 50 000 logements sociaux annoncés d'ici 2028 par le gouvernement ivoirien",
-    excerpt: "Le plan national de l'habitat lancé par la Côte d'Ivoire prévoit la construction de 50 000 unités à prix social dans les zones périurbaines.",
-    image: "/images/news-2.jpg",
-    readTime: "3 min",
-    date: "11 mars 2026",
-    featured: false,
-  },
-  {
-    id: 3,
-    category: "Énergie",
-    title: "Barrage de Kandadji au Niger : avancement des travaux à 78% selon le maître d'ouvrage",
-    excerpt: "Le projet hydroélectrique nigérien entre dans sa phase finale avec une mise en service prévue pour 2027.",
-    image: "/images/news-4.jpg",
-    readTime: "5 min",
-    date: "9 mars 2026",
-    featured: false,
-  },
-  {
-    id: 4,
-    category: "Génie Civil",
-    title: "Dakar accueille le Salon International du BTP Afrique 2026 en juin prochain",
-    excerpt: "La capitale sénégalaise sera le théâtre du plus grand salon professionnel dédié à la construction en Afrique.",
-    image: "/images/news-3.jpg",
-    readTime: "2 min",
-    date: "8 mars 2026",
+const categoryColors: Record<string, string> = {
+  "infrastructures": "bg-blue-700",
+  "batiment": "bg-green-700",
+  "genie-civil": "bg-[#0E1F2F]",
+  "energie": "bg-orange-700",
+  "materiaux": "bg-slate-600",
+  "reglementation": "bg-purple-700",
+}
+
+export default async function ActualitesPage() {
+  const supabase = await createClient()
+  
+  const { data: articles = [], error } = await supabase
+    .from("articles")
+    .select("*")
+    .order("published_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching articles:", error)
+  }
+
+  const main = articles[0]
+  const rest = articles.slice(1)
     featured: false,
   },
   {
@@ -68,8 +53,6 @@ const articles = [
     image: "/images/news-2.jpg",
     readTime: "6 min",
     date: "6 mars 2026",
-    featured: false,
-  },
 ]
 
 const events = [
@@ -105,8 +88,7 @@ const categoryColors: Record<string, string> = {
   Réglementation: "bg-purple-700",
 }
 
-export default function ActualitesPage() {
-  const [main, ...rest] = articles
+export default async function ActualitesPage() {
 
   return (
     <main>
@@ -162,53 +144,62 @@ export default function ActualitesPage() {
           {/* Main content */}
           <div className="lg:col-span-2">
             {/* Featured article */}
-            <div className="mb-8">
-              <Link href={`/actualites/${main.id}`} className="group block border border-border overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="relative h-72 overflow-hidden">
-                  <Image
-                    src={main.image}
-                    alt={main.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-[#0E1F2F]/30" />
-                  <span className={`absolute top-4 left-4 ${categoryColors[main.category] ?? "bg-[#0E1F2F]"} text-white text-xs font-bold px-3 py-1 uppercase tracking-wider`}>
-                    {main.category}
-                  </span>
-                  <span className="absolute top-4 right-4 bg-[#F28C28] text-white text-xs font-bold px-2.5 py-1 uppercase tracking-wider">
-                    À la une
-                  </span>
-                </div>
-                <div className="p-6">
-                  <h2 className="text-xl font-bold text-foreground mb-3 group-hover:text-[#F28C28] transition-colors text-balance">
-                    {main.title}
-                  </h2>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{main.excerpt}</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <Clock className="w-3.5 h-3.5" />
-                      <span>{main.readTime} de lecture · {main.date}</span>
-                    </div>
-                    <span className="text-[#F28C28] text-sm font-semibold flex items-center gap-1">
-                      Lire <ArrowRight className="w-3.5 h-3.5" />
+            {main && (
+              <div className="mb-8">
+                <Link href={`/actualites/${main.slug}`} className="group block border border-border overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="relative h-72 overflow-hidden">
+                    {main.cover_image ? (
+                      <Image
+                        src={main.cover_image}
+                        alt={main.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="bg-slate-200 dark:bg-slate-700 w-full h-full" />
+                    )}
+                    <div className="absolute inset-0 bg-[#0E1F2F]/30" />
+                    <span className={`absolute top-4 left-4 ${categoryColors[main.category] ?? "bg-[#0E1F2F]"} text-white text-xs font-bold px-3 py-1 uppercase tracking-wider`}>
+                      {main.category}
+                    </span>
+                    <span className="absolute top-4 right-4 bg-[#F28C28] text-white text-xs font-bold px-2.5 py-1 uppercase tracking-wider">
+                      À la une
                     </span>
                   </div>
-                </div>
-              </Link>
-            </div>
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold text-foreground mb-3 group-hover:text-[#F28C28] transition-colors text-balance">
+                      {main.title}
+                    </h2>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">{main.excerpt}</p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <Clock className="w-3.5 h-3.5" />
+                        <span>{main.reading_time || 5} min de lecture · {new Date(main.published_at).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span>
+                      </div>
+                      <span className="text-[#F28C28] text-sm font-semibold flex items-center gap-1">
+                        Lire <ArrowRight className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            )}
 
-            {/* Article grid */}
-            <SectionHeader title="Dernières actualités" />
+            {/* Other articles grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {rest.map((article) => (
-                <Link key={article.id} href={`/actualites/${article.id}`} className="group border border-border overflow-hidden hover:shadow-md transition-shadow">
+              {rest.map((article: any) => (
+                <Link key={article.id} href={`/actualites/${article.slug}`} className="group border border-border overflow-hidden hover:shadow-md transition-shadow">
                   <div className="relative h-40 overflow-hidden">
-                    <Image
-                      src={article.image}
-                      alt={article.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                    {article.cover_image ? (
+                      <Image
+                        src={article.cover_image}
+                        alt={article.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="bg-slate-200 dark:bg-slate-700 w-full h-full" />
+                    )}
                     <span className={`absolute top-3 left-3 ${categoryColors[article.category] ?? "bg-[#0E1F2F]"} text-white text-xs font-bold px-2 py-0.5 uppercase tracking-wider`}>
                       {article.category}
                     </span>
@@ -220,7 +211,7 @@ export default function ActualitesPage() {
                     <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2 mb-3">{article.excerpt}</p>
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
                       <Clock className="w-3 h-3" />
-                      <span>{article.readTime} · {article.date}</span>
+                      <span>{article.reading_time || 5} min · {new Date(article.published_at).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span>
                     </div>
                   </div>
                 </Link>

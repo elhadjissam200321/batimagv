@@ -19,11 +19,11 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
 
   const supabase = await createClient()
 
-  // Fetch the article
+  // Fetch the article by slug (id is actually the slug)
   const { data: article, error } = await supabase
     .from("articles")
     .select("*")
-    .eq("id", parseInt(id))
+    .eq("slug", id)
     .single()
 
   if (error || !article) {
@@ -38,9 +38,14 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
     .limit(3)
 
   // Parse content sections if stored as JSON
-  const contentSections = typeof article.content === "string" 
-    ? JSON.parse(article.content) 
-    : article.content || []
+  let contentSections: any[] = []
+  try {
+    if (article.content && typeof article.content === "string") {
+      contentSections = JSON.parse(article.content)
+    }
+  } catch (e) {
+    contentSections = []
+  }
 
   const categoryColors: Record<string, string> = {
     "Infrastructures": "bg-blue-700",
@@ -102,7 +107,7 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
                   <div className="size-12 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center flex-shrink-0" />
                   <div className="flex-grow">
                     <p className="text-sm font-bold text-primary dark:text-white">
-                      {article.author || "BATIMAG"}
+                      {article.author_name || "BATIMAG"}
                     </p>
                     <p className="text-xs text-slate-500">
                       {article.author_title || "Équipe Éditoriale"}
@@ -118,17 +123,17 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
                     </p>
                     <p className="text-xs text-slate-500 flex items-center justify-end gap-1">
                       <span className="material-symbols-outlined text-sm">schedule</span>
-                      {article.read_time || "5"} min de lecture
+                      {article.reading_time || "5"} min de lecture
                     </p>
                   </div>
                 </div>
 
                 {/* Featured Image */}
-                <div className="rounded-xl overflow-hidden mb-10 shadow-2xl">
+                  <div className="rounded-xl overflow-hidden mb-10 shadow-2xl">
                   <div className="aspect-video bg-cover bg-center relative">
-                    {article.featured_image ? (
+                    {article.cover_image ? (
                       <Image
-                        src={article.featured_image}
+                        src={article.cover_image}
                         alt={article.title}
                         fill
                         className="object-cover"
@@ -276,7 +281,7 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
                             {related.title}
                           </h5>
                           <p className="text-xs text-slate-500 mt-1">
-                            {related.read_time || "5"} min de lecture
+                            {related.reading_time || "5"} min de lecture
                           </p>
                         </div>
                       </Link>
@@ -289,7 +294,7 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
         </div>
       </div>
 
-      {/* Mobile Layout */}
+        {/* Mobile Layout */}
       <div className="lg:hidden min-h-screen flex flex-col max-w-md mx-auto">
         {/* Mobile Header */}
         <div className="sticky top-16 z-40 flex items-center justify-between bg-white/95 dark:bg-background-dark/95 backdrop-blur-md px-4 py-3 border-b border-primary/10">
@@ -309,9 +314,9 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
         <div className="flex-1 overflow-y-auto pb-24">
           {/* Hero Image */}
           <div className="relative w-full aspect-video group">
-            {article.featured_image ? (
+            {article.cover_image ? (
               <Image
-                src={article.featured_image}
+                src={article.cover_image}
                 alt={article.title}
                 fill
                 className="object-cover"
@@ -343,7 +348,7 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
               </div>
               <div className="flex-1">
                 <p className="text-sm font-bold text-primary dark:text-slate-200">
-                  {article.author || "BATIMAG"}
+                  {article.author_name || "BATIMAG"}
                 </p>
                 <div className="flex items-center gap-2 text-xs text-slate-500">
                   <span>
@@ -354,7 +359,7 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
                     })}
                   </span>
                   <span className="size-1 rounded-full bg-slate-300" />
-                  <span>{article.read_time || "5"} min de lecture</span>
+                  <span>{article.reading_time || "5"} min de lecture</span>
                 </div>
               </div>
             </div>
