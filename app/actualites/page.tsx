@@ -17,22 +17,13 @@ const categoryColors: Record<string, string> = {
   "energie": "bg-orange-700",
   "materiaux": "bg-slate-600",
   "reglementation": "bg-purple-700",
+  "Infrastructures": "bg-blue-700",
+  "Bâtiment": "bg-green-700",
+  "Génie Civil": "bg-[#0E1F2F]",
+  "Énergie": "bg-orange-700",
+  "Matériaux": "bg-slate-600",
+  "Réglementation": "bg-purple-700",
 }
-
-export default async function ActualitesPage() {
-  const supabase = await createClient()
-  
-  const { data: articles = [], error } = await supabase
-    .from("articles")
-    .select("*")
-    .order("published_at", { ascending: false })
-
-  if (error) {
-    console.error("Error fetching articles:", error)
-  }
-
-  const main = articles[0]
-  const rest = articles.slice(1)
 
 const events = [
   {
@@ -58,16 +49,20 @@ const events = [
   },
 ]
 
-const categoryColors: Record<string, string> = {
-  Infrastructures: "bg-blue-700",
-  Bâtiment: "bg-green-700",
-  "Génie Civil": "bg-[#0E1F2F]",
-  Énergie: "bg-orange-700",
-  Matériaux: "bg-slate-600",
-  Réglementation: "bg-purple-700",
-}
-
 export default async function ActualitesPage() {
+  const supabase = await createClient()
+  
+  const { data: articles = [], error } = await supabase
+    .from("articles")
+    .select("*")
+    .order("published_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching articles:", error)
+  }
+
+  const main = articles[0]
+  const rest = articles.slice(1)
 
   return (
     <main>
