@@ -4,12 +4,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { useState, useMemo } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import useSWR from "swr"
 import { ChevronRight, ChevronLeft, Search, X } from "lucide-react"
-
-const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 const sectorOptions = [
   { icon: "fa-solid fa-hard-hat", label: "Gros Œuvre", slug: "gros-oeuvre" },
@@ -28,13 +25,29 @@ export default function AnnuairePage() {
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
   const [selectedSector, setSelectedSector] = useState(searchParams.get('sector') || '')
   const currentPage = parseInt(searchParams.get('page') || '1')
+  const [companiesData, setCompaniesData] = useState<any>(null)
+  const [sectorsData, setSectorsData] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
-  const { data: companiesData } = useSWR(
-    `/api/companies?search=${encodeURIComponent(searchTerm)}&sector=${encodeURIComponent(selectedSector)}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`,
-    fetcher
-  )
-
-  const { data: sectorsData } = useSWR('/api/sectors', fetcher)
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const [companiesRes, sectorsRes] = await Promise.all([
+          fetch(`/api/companies?search=${encodeURIComponent(searchTerm)}&sector=${encodeURIComponent(selectedSector)}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`),
+          fetch('/api/sectors')
+        ])
+        const companies = await companiesRes.json()
+        const sectors = await sectorsRes.json()
+        setCompaniesData(companies)
+        setSectorsData(sectors)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+      setLoading(false)
+    }
+    fetchData()
+  }, [searchTerm, selectedSector, currentPage])
   
   const premiumCompanies = useMemo(() => {
     return (companiesData?.data || []).filter((c: any) => c.is_premium).slice(0, 3)

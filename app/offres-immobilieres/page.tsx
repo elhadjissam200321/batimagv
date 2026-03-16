@@ -1,15 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import useSWR from 'swr';
 import { Heart, MapPin, Bed, Bath, Maximize2, ChevronLeft, ChevronRight, Search, SlidersHorizontal, Grid3x3, List } from 'lucide-react';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
 const ITEMS_PER_PAGE = 9;
 
 const propertyTypes = ['Tous types', 'Villa', 'Appartement', 'Bureau', 'Terrain', 'Duplex', 'Commercial', 'Maison'];
@@ -172,11 +170,25 @@ export default function OffresImmobilieresPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
   const currentPage = parseInt(searchParams.get('page') || '1');
+  const [propertiesData, setPropertiesData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  const { data: propertiesData } = useSWR(
-    `/api/properties?search=${encodeURIComponent(searchTerm)}&type=${encodeURIComponent(propertyType)}&country=${encodeURIComponent(country)}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`,
-    fetcher
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(
+          `/api/properties?search=${encodeURIComponent(searchTerm)}&type=${encodeURIComponent(propertyType)}&country=${encodeURIComponent(country)}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`
+        );
+        const data = await res.json();
+        setPropertiesData(data);
+      } catch (error) {
+        console.error('Error fetching properties:', error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [searchTerm, propertyType, country, currentPage]);
 
   const properties = propertiesData?.data || [];
   const totalPages = propertiesData?.totalPages || 1;
