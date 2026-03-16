@@ -20,10 +20,12 @@ const contractColors: Record<string, string> = {
 export default async function EmploisPage() {
   const supabase = await createClient()
   
-  const { data: jobs = [] } = await supabase
+  const { data } = await supabase
     .from("jobs")
     .select("*")
     .order("published_at", { ascending: false })
+
+  const jobs = data || []
 
   return (
     <main>

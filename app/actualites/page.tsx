@@ -52,7 +52,7 @@ const events = [
 export default async function ActualitesPage() {
   const supabase = await createClient()
   
-  const { data: articles = [], error } = await supabase
+  const { data, error } = await supabase
     .from("articles")
     .select("*")
     .order("published_at", { ascending: false })
@@ -61,7 +61,8 @@ export default async function ActualitesPage() {
     console.error("Error fetching articles:", error)
   }
 
-  const main = articles[0]
+  const articles = data || []
+  const main = articles.length > 0 ? articles[0] : null
   const rest = articles.slice(1)
 
   return (
