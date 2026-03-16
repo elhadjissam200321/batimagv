@@ -4,53 +4,54 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* BATIMAG Brand Colors */
-  --brand-navy: #0E1F2F;
-  --brand-orange: #F28C28;
-  --brand-grey: #F4F5F6;
-  --brand-grey-mid: #8A9099;
-  --brand-grey-dark: #3D4550;
+  /* BATIMAG Moroccan Brand Colors */
+  --brand-orange: #FF9000;
+  --brand-brown: #603C2D;
+  --brand-cream: #FFF8F0;
+  --brand-sand: #F5E6D3;
+  --brand-terracotta: #C4724A;
+  --brand-gold: #D4A574;
 
   /* Semantic Tokens */
   --background: #ffffff;
-  --foreground: #0E1F2F;
+  --foreground: #603C2D;
   --card: #ffffff;
-  --card-foreground: #0E1F2F;
+  --card-foreground: #603C2D;
   --popover: #ffffff;
-  --popover-foreground: #0E1F2F;
-  --primary: #0E1F2F;
+  --popover-foreground: #603C2D;
+  --primary: #603C2D;
   --primary-foreground: #ffffff;
-  --secondary: #F4F5F6;
-  --secondary-foreground: #0E1F2F;
-  --muted: #F4F5F6;
-  --muted-foreground: #8A9099;
-  --accent: #F28C28;
+  --secondary: #FFF8F0;
+  --secondary-foreground: #603C2D;
+  --muted: #F5E6D3;
+  --muted-foreground: #8B6F5C;
+  --accent: #FF9000;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: #E2E5E9;
-  --input: #E2E5E9;
-  --ring: #F28C28;
-  --radius: 0.25rem;
-  --chart-1: #F28C28;
-  --chart-2: #0E1F2F;
-  --chart-3: #8A9099;
-  --chart-4: #3D4550;
-  --chart-5: #F4F5F6;
-  --sidebar: #0E1F2F;
+  --border: #E8D5C4;
+  --input: #E8D5C4;
+  --ring: #FF9000;
+  --radius: 0.5rem;
+  --chart-1: #FF9000;
+  --chart-2: #603C2D;
+  --chart-3: #C4724A;
+  --chart-4: #D4A574;
+  --chart-5: #F5E6D3;
+  --sidebar: #603C2D;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #F28C28;
+  --sidebar-primary: #FF9000;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1a3044;
+  --sidebar-accent: #7A4E3D;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #1a3044;
-  --sidebar-ring: #F28C28;
+  --sidebar-border: #7A4E3D;
+  --sidebar-ring: #FF9000;
 }
 
 @theme inline {
-  /* Typography - DM Sans for body, Libre Baskerville for editorial headings */
+  /* Typography - Playfair Display for headings (elegant, Moroccan-compatible), DM Sans for body */
   --font-sans: var(--font-dm-sans), 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: var(--font-libre-baskerville), 'Libre Baskerville', Georgia, serif;
+  --font-serif: var(--font-playfair), 'Playfair Display', Georgia, serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
   
   /* Colors */
@@ -79,7 +80,7 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
   
-  /* Radius */
+  /* Radius - slightly rounded for Moroccan arches aesthetic */
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 4px);
@@ -96,11 +97,12 @@
   --color-sidebar-ring: var(--sidebar-ring);
   
   /* Brand custom tokens */
-  --color-navy: var(--brand-navy);
   --color-orange: var(--brand-orange);
-  --color-grey-light: var(--brand-grey);
-  --color-grey-mid: var(--brand-grey-mid);
-  --color-grey-dark: var(--brand-grey-dark);
+  --color-brown: var(--brand-brown);
+  --color-cream: var(--brand-cream);
+  --color-sand: var(--brand-sand);
+  --color-terracotta: var(--brand-terracotta);
+  --color-gold: var(--brand-gold);
 }
 
 @layer base {
@@ -119,4 +121,44 @@
   h4, h5, h6 {
     @apply font-sans font-semibold leading-tight;
   }
+}
+
+/* Moroccan Zellige Pattern Background */
+.zellige-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23FF9000' fill-opacity='0.08'%3E%3Cpath d='M40 0L0 40L40 80L80 40L40 0zM40 10L70 40L40 70L10 40L40 10z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.zellige-pattern-dark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.06'%3E%3Cpath d='M40 0L0 40L40 80L80 40L40 0zM40 10L70 40L40 70L10 40L40 10z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Moroccan Star Pattern */
+.moroccan-star {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23FF9000' fill-opacity='0.1'%3E%3Cpolygon points='30,0 37,22 60,22 42,36 49,58 30,44 11,58 18,36 0,22 23,22'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Decorative Border Pattern */
+.moroccan-border {
+  background-image: linear-gradient(90deg, #FF9000 25%, transparent 25%), 
+                    linear-gradient(90deg, transparent 75%, #FF9000 75%);
+  background-size: 8px 2px;
+  background-repeat: repeat-x;
+}
+
+.moroccan-border-vertical {
+  background-image: linear-gradient(180deg, #FF9000 25%, transparent 25%), 
+                    linear-gradient(180deg, transparent 75%, #FF9000 75%);
+  background-size: 2px 8px;
+  background-repeat: repeat-y;
+}
+
+/* Arch decoration - Moroccan doorway style */
+.moroccan-arch {
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+/* Selection color */
+::selection {
+  background-color: #FF9000;
+  color: white;
 }
