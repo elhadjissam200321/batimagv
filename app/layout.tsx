@@ -1,3 +1,4 @@
+// BATIMAG Layout - v1.0.1
 import type { Metadata } from 'next'
 import { DM_Sans, Libre_Baskerville } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
