@@ -18,12 +18,12 @@ const libreBaskerville = Libre_Baskerville({
 })
 
 export const metadata: Metadata = {
-  title: 'BATIMAG - 1ere Plateforme Africaine du BTP',
-  description: 'BATIMAG est la plateforme media et business de reference pour le secteur de la construction, des infrastructures et de l\'immobilier en Afrique.',
-  keywords: 'construction Afrique, BTP Afrique, infrastructure Afrique, immobilier Afrique, genie civil, Maroc',
+  title: 'BATIMAG – La référence média & business de la construction en Afrique',
+  description: 'BATIMAG est la plateforme média et business de référence pour le secteur de la construction, des infrastructures et de l\'immobilier en Afrique.',
+  keywords: 'construction Afrique, BTP Afrique, infrastructure Afrique, immobilier Afrique, génie civil',
   openGraph: {
-    title: 'BATIMAG - 1ere Plateforme Africaine du BTP',
-    description: 'Plateforme media et business pour le secteur de la construction, des infrastructures et de l\'immobilier en Afrique.',
+    title: 'BATIMAG – La référence BTP en Afrique',
+    description: 'Plateforme média et business pour le secteur de la construction, des infrastructures et de l\'immobilier en Afrique.',
     type: 'website',
   },
 }
