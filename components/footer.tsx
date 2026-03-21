@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Linkedin, Twitter, Youtube } from "lucide-react"
+import { Facebook, Linkedin, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react"
 
 const footerSections = [
   {
@@ -76,15 +76,15 @@ export function Footer() {
             </p>
             <div className="space-y-2 text-sm text-white/60">
               <div className="flex items-start gap-2">
-                <span className="text-xl shrink-0">📍</span>
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-[#F28C28]" />
                 <span>Casablanca, Maroc</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xl shrink-0">📞</span>
+                <Phone className="w-4 h-4 shrink-0 text-[#F28C28]" />
                 <span>+212 (0) 5 22 XX XX XX</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xl shrink-0">✉️</span>
+                <Mail className="w-4 h-4 shrink-0 text-[#F28C28]" />
                 <span>contact@batimag.africa</span>
               </div>
             </div>
