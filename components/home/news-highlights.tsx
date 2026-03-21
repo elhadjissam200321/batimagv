@@ -53,7 +53,7 @@ const featuredArticles = [
 const categoryColors: Record<string, string> = {
   Infrastructures: "bg-blue-700",
   Bâtiment: "bg-green-700",
-  "Génie Civil": "bg-[#0E1F2F]",
+  "Génie Civil": "bg-[#603C2D]",
   "Énergie & Infrastructure": "bg-orange-700",
 }
 
@@ -81,15 +81,15 @@ export function NewsHighlights() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-[#0E1F2F]/40" />
+                <div className="absolute inset-0 bg-[#603C2D]/40" />
                 <span
-                  className={`absolute top-4 left-4 ${categoryColors[main.category] ?? "bg-[#0E1F2F]"} text-white text-xs font-bold px-3 py-1 uppercase tracking-wider`}
+                  className={`absolute top-4 left-4 ${categoryColors[main.category] ?? "bg-[#603C2D]"} text-white text-xs font-bold px-3 py-1 uppercase tracking-wider`}
                 >
                   {main.category}
                 </span>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-foreground leading-snug mb-3 group-hover:text-[#F28C28] transition-colors text-balance">
+                <                  h3 className="text-xl font-bold text-foreground leading-snug mb-3 group-hover:text-[#FF9000] transition-colors text-balance">
                   {main.title}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
@@ -102,7 +102,7 @@ export function NewsHighlights() {
                     <span className="mx-2">·</span>
                     <span>{main.date}</span>
                   </div>
-                  <span className="text-[#F28C28] text-sm font-semibold flex items-center gap-1">
+                  <span className="text-[#FF9000] text-sm font-semibold flex items-center gap-1">
                     Lire l'article <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
@@ -128,11 +128,11 @@ export function NewsHighlights() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <span
-                    className={`inline-block ${categoryColors[article.category] ?? "bg-[#0E1F2F]"} text-white text-xs font-bold px-2 py-0.5 mb-1 uppercase tracking-wider`}
+                    className={`inline-block ${categoryColors[article.category] ?? "bg-[#603C2D]"} text-white text-xs font-bold px-2 py-0.5 mb-1 uppercase tracking-wider`}
                   >
                     {article.category}
                   </span>
-                  <h4 className="text-sm font-bold text-foreground leading-snug group-hover:text-[#F28C28] transition-colors line-clamp-2 text-balance">
+                  <                  h4 className="text-sm font-bold text-foreground leading-snug group-hover:text-[#FF9000] transition-colors line-clamp-2 text-balance">
                     {article.title}
                   </h4>
                   <div className="flex items-center gap-1 text-muted-foreground text-xs mt-1.5">

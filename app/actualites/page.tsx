@@ -13,13 +13,13 @@ const categories = [
 const categoryColors: Record<string, string> = {
   "infrastructures": "bg-blue-700",
   "batiment": "bg-green-700",
-  "genie-civil": "bg-[#0E1F2F]",
+  "genie-civil": "bg-[#603C2D]",
   "energie": "bg-orange-700",
   "materiaux": "bg-slate-600",
   "reglementation": "bg-purple-700",
   "Infrastructures": "bg-blue-700",
   "Bâtiment": "bg-green-700",
-  "Génie Civil": "bg-[#0E1F2F]",
+  "Génie Civil": "bg-[#603C2D]",
   "Énergie": "bg-orange-700",
   "Matériaux": "bg-slate-600",
   "Réglementation": "bg-purple-700",
@@ -70,10 +70,10 @@ export default async function ActualitesPage() {
       <Navbar />
 
       {/* Page header */}
-      <section className="bg-[#0E1F2F] py-10">
+      <section className="bg-[#603C2D] py-10">
         <div className="max-w-7xl mx-auto px-4">
           <nav className="flex items-center gap-2 text-white/40 text-xs mb-3">
-            <Link href="/" className="hover:text-[#F28C28] transition-colors">Accueil</Link>
+            <Link href="/" className="hover:text-[#FF9000] transition-colors">Accueil</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-white/70">Actualités & Événements</span>
           </nav>
@@ -93,7 +93,7 @@ export default async function ActualitesPage() {
               <input
                 type="text"
                 placeholder="Rechercher une actualité..."
-                className="w-full pl-9 pr-4 py-2 text-sm bg-background border border-border focus:outline-none focus:ring-2 focus:ring-[#F28C28]"
+                className="w-full pl-9 pr-4 py-2 text-sm bg-background border border-border focus:outline-none focus:ring-2 focus:ring-[#FF9000]"
               />
             </div>
             <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 w-full md:w-auto">
@@ -102,8 +102,8 @@ export default async function ActualitesPage() {
                   key={cat}
                   className={`shrink-0 text-xs font-semibold px-3 py-1.5 transition-colors ${
                     cat === "Tous"
-                      ? "bg-[#0E1F2F] text-white"
-                      : "bg-background border border-border text-foreground hover:border-[#F28C28] hover:text-[#F28C28]"
+                      ? "bg-[#603C2D] text-white"
+                      : "bg-background border border-border text-foreground hover:border-[#FF9000] hover:text-[#FF9000]"
                   }`}
                 >
                   {cat}
@@ -133,16 +133,16 @@ export default async function ActualitesPage() {
                     ) : (
                       <div className="bg-slate-200 dark:bg-slate-700 w-full h-full" />
                     )}
-                    <div className="absolute inset-0 bg-[#0E1F2F]/30" />
-                    <span className={`absolute top-4 left-4 ${categoryColors[main.category] ?? "bg-[#0E1F2F]"} text-white text-xs font-bold px-3 py-1 uppercase tracking-wider`}>
+                    <div className="absolute inset-0 bg-[#603C2D]/30" />
+                    <span className={`absolute top-4 left-4 ${categoryColors[main.category] ?? "bg-[#603C2D]"} text-white text-xs font-bold px-3 py-1 uppercase tracking-wider`}>
                       {main.category}
                     </span>
-                    <span className="absolute top-4 right-4 bg-[#F28C28] text-white text-xs font-bold px-2.5 py-1 uppercase tracking-wider">
+                    <span className="absolute top-4 right-4 bg-[#FF9000] text-white text-xs font-bold px-2.5 py-1 uppercase tracking-wider">
                       À la une
                     </span>
                   </div>
                   <div className="p-6">
-                    <h2 className="text-xl font-bold text-foreground mb-3 group-hover:text-[#F28C28] transition-colors text-balance">
+                    <                    h2 className="text-xl font-bold text-foreground mb-3 group-hover:text-[#FF9000] transition-colors text-balance">
                       {main.title}
                     </h2>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4">{main.excerpt}</p>
@@ -151,7 +151,7 @@ export default async function ActualitesPage() {
                         <Clock className="w-3.5 h-3.5" />
                         <span>{main.reading_time || 5} min de lecture · {new Date(main.published_at).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span>
                       </div>
-                      <span className="text-[#F28C28] text-sm font-semibold flex items-center gap-1">
+                      <span className="text-[#FF9000] text-sm font-semibold flex items-center gap-1">
                         Lire <ArrowRight className="w-3.5 h-3.5" />
                       </span>
                     </div>
@@ -175,12 +175,12 @@ export default async function ActualitesPage() {
                     ) : (
                       <div className="bg-slate-200 dark:bg-slate-700 w-full h-full" />
                     )}
-                    <span className={`absolute top-3 left-3 ${categoryColors[article.category] ?? "bg-[#0E1F2F]"} text-white text-xs font-bold px-2 py-0.5 uppercase tracking-wider`}>
+                    <span className={`absolute top-3 left-3 ${categoryColors[article.category] ?? "bg-[#603C2D]"} text-white text-xs font-bold px-2 py-0.5 uppercase tracking-wider`}>
                       {article.category}
                     </span>
                   </div>
                   <div className="p-4">
-                    <h3 className="text-sm font-bold text-foreground mb-2 leading-snug group-hover:text-[#F28C28] transition-colors line-clamp-2 text-balance">
+                    <                    h3 className="text-sm font-bold text-foreground mb-2 leading-snug group-hover:text-[#FF9000] transition-colors line-clamp-2 text-balance">
                       {article.title}
                     </h3>
                     <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2 mb-3">{article.excerpt}</p>
@@ -206,13 +206,13 @@ export default async function ActualitesPage() {
               <SectionHeader title="Événements" />
               <div className="space-y-3">
                 {events.map((event) => (
-                  <div key={event.id} className="border border-border p-4 hover:border-[#F28C28] transition-colors cursor-pointer">
+                  <div key={event.id}                       className="border border-border p-4 hover:border-[#FF9000] transition-colors cursor-pointer">
                     <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-[#0E1F2F] flex items-center justify-center shrink-0">
-                        <Calendar className="w-5 h-5 text-[#F28C28]" />
+                      <div className="w-10 h-10 bg-[#603C2D] flex items-center justify-center shrink-0">
+                        <Calendar className="w-5 h-5 text-[#FF9000]" />
                       </div>
                       <div>
-                        <span className="text-[#F28C28] text-xs font-bold uppercase tracking-wider">{event.type}</span>
+                        <span className="text-[#FF9000] text-xs font-bold uppercase tracking-wider">{event.type}</span>
                         <h4 className="text-sm font-bold text-foreground leading-snug mt-0.5">{event.title}</h4>
                         <div className="flex items-center gap-1 text-muted-foreground text-xs mt-1">
                           <MapPin className="w-3 h-3" />
@@ -227,15 +227,15 @@ export default async function ActualitesPage() {
             </div>
 
             {/* Newsletter CTA */}
-            <div className="bg-[#0E1F2F] p-6">
+            <div className="bg-[#603C2D] p-6">
               <h4 className="text-white font-bold mb-2">Newsletter BATIMAG</h4>
               <p className="text-white/60 text-sm mb-4">Recevez les actualités BTP chaque semaine directement dans votre boîte mail.</p>
               <input
                 type="email"
                 placeholder="Votre e-mail"
-                className="w-full px-3 py-2 text-sm bg-white/10 text-white placeholder:text-white/40 border border-white/20 focus:outline-none focus:border-[#F28C28] mb-3"
+                className="w-full px-3 py-2 text-sm bg-white/10 text-white placeholder:text-white/40 border border-white/20 focus:outline-none focus:border-[#FF9000] mb-3"
               />
-              <button className="w-full bg-[#F28C28] text-white text-sm font-bold py-2.5 hover:bg-orange-600 transition-colors">
+              <button className="w-full bg-[#FF9000] text-white text-sm font-bold py-2.5 hover:bg-orange-600 transition-colors">
                 S'abonner
               </button>
             </div>

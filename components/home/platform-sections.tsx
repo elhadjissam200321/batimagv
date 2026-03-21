@@ -9,7 +9,7 @@ const sections = [
       "Suivez toute l'actualité du BTP en Afrique : projets, marchés, politiques publiques, appels d'offres et événements professionnels.",
     href: "/actualites",
     cta: "Voir les actualités",
-    color: "bg-[#0E1F2F]",
+    color: "bg-[#603C2D]",
   },
   {
     icon: Building2,
@@ -18,7 +18,7 @@ const sections = [
       "Retrouvez les entreprises leaders du secteur : constructeurs, bureaux d'études, fournisseurs de matériaux et équipementiers.",
     href: "/annuaire",
     cta: "Parcourir l'annuaire",
-    color: "bg-[#1a3044]",
+    color: "bg-[#7a4c3a]",
   },
   {
     icon: GraduationCap,
@@ -27,7 +27,7 @@ const sections = [
       "Découvrez les meilleures formations professionnelles en génie civil, management de projet et métiers de la construction.",
     href: "/formations",
     cta: "Explorer les formations",
-    color: "bg-[#0E1F2F]",
+    color: "bg-[#603C2D]",
   },
   {
     icon: Briefcase,
@@ -36,7 +36,7 @@ const sections = [
       "Trouvez votre prochain poste dans le BTP : ingénieurs, conducteurs de travaux, architectes, gestionnaires de projet et plus.",
     href: "/emplois",
     cta: "Voir les offres",
-    color: "bg-[#1a3044]",
+    color: "bg-[#7a4c3a]",
   },
 ]
 
@@ -53,7 +53,7 @@ export function PlatformSections() {
                 href={section.href}
                 className={`group ${section.color} p-8 flex flex-col gap-4 hover:brightness-110 transition-all`}
               >
-                <div className="w-12 h-12 bg-[#F28C28] flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 bg-[#FF9000] flex items-center justify-center shrink-0">
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -64,7 +64,7 @@ export function PlatformSections() {
                     {section.description}
                   </p>
                 </div>
-                <div className="mt-auto pt-4 border-t border-white/10 flex items-center gap-2 text-[#F28C28] text-sm font-semibold group-hover:gap-3 transition-all">
+                <div className="mt-auto pt-4 border-t border-white/10 flex items-center gap-2 text-[#FF9000] text-sm font-semibold group-hover:gap-3 transition-all">
                   {section.cta}
                   <ArrowRight className="w-4 h-4" />
                 </div>
