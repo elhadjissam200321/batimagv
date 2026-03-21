@@ -36,9 +36,9 @@ const footerSections = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#0E1F2F] text-white">
+    <footer className="bg-[#603C2D] text-white">
       {/* Newsletter band */}
-      <div className="bg-[#F28C28]">
+      <div className="bg-[#FF9000]">
         <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
             <p className="font-bold text-white text-lg">Restez informé</p>
@@ -52,7 +52,7 @@ export function Footer() {
             />
             <button
               type="submit"
-              className="bg-[#0E1F2F] text-white px-5 py-2.5 text-sm font-semibold hover:bg-[#1a3044] transition-colors whitespace-nowrap"
+              className="bg-[#603C2D] text-white px-5 py-2.5 text-sm font-semibold hover:bg-[#4a2d20] transition-colors whitespace-nowrap"
             >
               S'abonner
             </button>
@@ -66,7 +66,7 @@ export function Footer() {
           {/* Brand column */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-[#F28C28] flex items-center justify-center">
+              <div className="w-8 h-8 bg-[#FF9000] flex items-center justify-center">
                 <span className="text-white font-bold text-sm">B</span>
               </div>
               <span className="text-white font-bold text-xl tracking-wider">BATIMAG</span>
@@ -76,15 +76,15 @@ export function Footer() {
             </p>
             <div className="space-y-2 text-sm text-white/60">
               <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-[#F28C28]" />
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-[#FF9000]" />
                 <span>Casablanca, Maroc</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 shrink-0 text-[#F28C28]" />
+                <Phone className="w-4 h-4 shrink-0 text-[#FF9000]" />
                 <span>+212 (0) 5 22 XX XX XX</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 shrink-0 text-[#F28C28]" />
+                <Mail className="w-4 h-4 shrink-0 text-[#FF9000]" />
                 <span>contact@batimag.africa</span>
               </div>
             </div>
@@ -101,7 +101,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-white/60 text-sm hover:text-[#F28C28] transition-colors"
+                      className="text-white/60 text-sm hover:text-[#FF9000] transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -114,10 +114,10 @@ export function Footer() {
       </div>
 
       {/* Digifly Digital Partner band */}
-      <div className="border-t border-white/10 bg-[#0a1820]">
+      <div className="border-t border-white/10 bg-[#4a2d20]">
         <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-[#F28C28] flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 bg-[#FF9000] flex items-center justify-center shrink-0">
               <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
@@ -131,7 +131,7 @@ export function Footer() {
             href="http://digiflyagency.ma/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-[#F28C28] text-[#F28C28] text-sm font-semibold px-5 py-2 hover:bg-[#F28C28] hover:text-white transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-2 border border-[#FF9000] text-[#FF9000] text-sm font-semibold px-5 py-2 hover:bg-[#FF9000] hover:text-white transition-colors whitespace-nowrap"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -160,7 +160,7 @@ export function Footer() {
                 key={label}
                 href="#"
                 aria-label={label}
-                className="w-8 h-8 bg-white/10 hover:bg-[#F28C28] flex items-center justify-center transition-colors"
+                className="w-8 h-8 bg-white/10 hover:bg-[#FF9000] flex items-center justify-center transition-colors"
               >
                 <Icon className="w-4 h-4 text-white" />
               </a>

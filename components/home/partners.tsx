@@ -18,7 +18,7 @@ export function Partners() {
             {institutionalPartners.map((name) => (
               <div
                 key={name}
-                className="h-10 px-6 bg-secondary flex items-center justify-center text-muted-foreground font-bold text-sm hover:bg-[#0E1F2F] hover:text-white transition-colors cursor-default"
+                className="h-10 px-6 bg-secondary flex items-center justify-center text-muted-foreground font-bold text-sm hover:bg-[#603C2D] hover:text-white transition-colors cursor-default"
               >
                 {name}
               </div>
@@ -34,7 +34,7 @@ export function Partners() {
             {pedagogicalPartners.map((name) => (
               <div
                 key={name}
-                className="h-10 px-6 bg-secondary flex items-center justify-center text-muted-foreground font-bold text-sm hover:bg-[#F28C28] hover:text-white transition-colors cursor-default"
+                className="h-10 px-6 bg-secondary flex items-center justify-center text-muted-foreground font-bold text-sm hover:bg-[#FF9000] hover:text-white transition-colors cursor-default"
               >
                 {name}
               </div>

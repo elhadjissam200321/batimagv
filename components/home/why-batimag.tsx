@@ -13,13 +13,13 @@ const reasons = [
 
 export function WhyBatimag() {
   return (
-    <section className="py-14 bg-[#0E1F2F]">
+    <section className="py-14 bg-[#603C2D]">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left: heading */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <span className="w-1 h-8 bg-[#F28C28] inline-block" />
+              <span className="w-1 h-8 bg-[#FF9000] inline-block" />
               <h2 className="text-3xl md:text-4xl font-bold text-white text-balance">
                 Pourquoi choisir BATIMAG ?
               </h2>
@@ -33,7 +33,7 @@ export function WhyBatimag() {
                 {["FNBTP", "BAD", "ONUDI", "UEMOA", "CCI Afrique"].map((partner) => (
                   <span
                     key={partner}
-                    className="border border-white/20 text-white/60 text-xs font-semibold px-3 py-1.5 hover:border-[#F28C28] hover:text-[#F28C28] transition-colors cursor-default"
+                    className="border border-white/20 text-white/60 text-xs font-semibold px-3 py-1.5 hover:border-[#FF9000] hover:text-[#FF9000] transition-colors cursor-default"
                   >
                     {partner}
                   </span>
@@ -46,7 +46,7 @@ export function WhyBatimag() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {reasons.map((reason) => (
               <div key={reason} className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-[#F28C28] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-5 h-5 text-[#FF9000] shrink-0 mt-0.5" />
                 <p className="text-white/80 text-sm leading-relaxed">{reason}</p>
               </div>
             ))}

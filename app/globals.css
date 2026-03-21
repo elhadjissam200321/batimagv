@@ -4,47 +4,48 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* BATIMAG Brand Colors */
-  --brand-navy: #0E1F2F;
-  --brand-orange: #F28C28;
-  --brand-grey: #F4F5F6;
-  --brand-grey-mid: #8A9099;
-  --brand-grey-dark: #3D4550;
+  /* BATIMAG Brand Colors — Moroccan Palette */
+  --brand-primary: #FF9000;       /* Vibrant saffron orange */
+  --brand-secondary: #603C2D;     /* Deep terracotta brown */
+  --brand-cream: #FAF6F0;         /* Warm off-white / zellige background */
+  --brand-sand: #EDE3D6;          /* Pale sand / parchment */
+  --brand-grey-mid: #9A8D82;      /* Warm greige */
+  --brand-grey-dark: #4A3D35;     /* Dark warm brown-grey */
 
   /* Semantic Tokens */
-  --background: #ffffff;
-  --foreground: #0E1F2F;
+  --background: #FAF6F0;
+  --foreground: #603C2D;
   --card: #ffffff;
-  --card-foreground: #0E1F2F;
+  --card-foreground: #603C2D;
   --popover: #ffffff;
-  --popover-foreground: #0E1F2F;
-  --primary: #0E1F2F;
+  --popover-foreground: #603C2D;
+  --primary: #603C2D;
   --primary-foreground: #ffffff;
-  --secondary: #F4F5F6;
-  --secondary-foreground: #0E1F2F;
-  --muted: #F4F5F6;
-  --muted-foreground: #8A9099;
-  --accent: #F28C28;
+  --secondary: #EDE3D6;
+  --secondary-foreground: #603C2D;
+  --muted: #EDE3D6;
+  --muted-foreground: #9A8D82;
+  --accent: #FF9000;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: #E2E5E9;
-  --input: #E2E5E9;
-  --ring: #F28C28;
+  --border: #DDD0C2;
+  --input: #DDD0C2;
+  --ring: #FF9000;
   --radius: 0.25rem;
-  --chart-1: #F28C28;
-  --chart-2: #0E1F2F;
-  --chart-3: #8A9099;
-  --chart-4: #3D4550;
-  --chart-5: #F4F5F6;
-  --sidebar: #0E1F2F;
+  --chart-1: #FF9000;
+  --chart-2: #603C2D;
+  --chart-3: #9A8D82;
+  --chart-4: #4A3D35;
+  --chart-5: #EDE3D6;
+  --sidebar: #603C2D;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #F28C28;
+  --sidebar-primary: #FF9000;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1a3044;
+  --sidebar-accent: #7a4c3a;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #1a3044;
-  --sidebar-ring: #F28C28;
+  --sidebar-border: #7a4c3a;
+  --sidebar-ring: #FF9000;
 }
 
 @theme inline {
@@ -96,9 +97,10 @@
   --color-sidebar-ring: var(--sidebar-ring);
   
   /* Brand custom tokens */
-  --color-navy: var(--brand-navy);
-  --color-orange: var(--brand-orange);
-  --color-grey-light: var(--brand-grey);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-cream: var(--brand-cream);
+  --color-sand: var(--brand-sand);
   --color-grey-mid: var(--brand-grey-mid);
   --color-grey-dark: var(--brand-grey-dark);
 }

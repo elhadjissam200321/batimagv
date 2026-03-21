@@ -105,8 +105,8 @@ const modeIcons = {
 }
 
 const modeColors: Record<string, string> = {
-  Présentiel: "bg-[#0E1F2F] text-white",
-  "E-learning": "bg-[#F28C28] text-white",
+  Présentiel: "bg-[#603C2D] text-white",
+  "E-learning": "bg-[#FF9000] text-white",
   Hybride: "bg-secondary text-foreground border border-border",
 }
 
@@ -116,10 +116,10 @@ export default function FormationsPage() {
       <Navbar />
 
       {/* Page header */}
-      <section className="bg-[#0E1F2F] py-10">
+      <section className="bg-[#603C2D] py-10">
         <div className="max-w-7xl mx-auto px-4">
           <nav className="flex items-center gap-2 text-white/40 text-xs mb-3">
-            <Link href="/" className="hover:text-[#F28C28] transition-colors">Accueil</Link>
+            <Link href="/" className="hover:text-[#FF9000] transition-colors">Accueil</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-white/70">Formations</span>
           </nav>
@@ -141,7 +141,7 @@ export default function FormationsPage() {
               { value: "22", label: "Pays couverts" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-[#F28C28] text-xl font-bold">{stat.value}</p>
+                <p className="text-[#FF9000] text-xl font-bold">{stat.value}</p>
                 <p className="text-muted-foreground text-xs mt-0.5">{stat.label}</p>
               </div>
             ))}
@@ -158,7 +158,7 @@ export default function FormationsPage() {
               <input
                 type="text"
                 placeholder="Titre de formation, institution..."
-                className="w-full pl-9 pr-4 py-2.5 text-sm bg-background border border-border focus:outline-none focus:ring-2 focus:ring-[#F28C28]"
+                className="w-full pl-9 pr-4 py-2.5 text-sm bg-background border border-border focus:outline-none focus:ring-2 focus:ring-[#FF9000]"
               />
             </div>
             <select className="px-4 py-2.5 text-sm bg-background border border-border focus:outline-none text-foreground">
@@ -170,7 +170,7 @@ export default function FormationsPage() {
             <select className="px-4 py-2.5 text-sm bg-background border border-border focus:outline-none text-foreground">
               {modes.map((m) => <option key={m}>{m}</option>)}
             </select>
-            <button className="bg-[#F28C28] text-white text-sm font-bold px-6 py-2.5 hover:bg-orange-600 transition-colors flex items-center gap-2">
+            <button className="bg-[#FF9000] text-white text-sm font-bold px-6 py-2.5 hover:bg-orange-600 transition-colors flex items-center gap-2">
               <Search className="w-4 h-4" />
               Chercher
             </button>
@@ -187,7 +187,7 @@ export default function FormationsPage() {
               <Link
                 key={training.id}
                 href={`/formations/${training.id}`}
-                className="group flex gap-0 bg-background border border-[#F28C28]/40 overflow-hidden hover:shadow-lg transition-shadow"
+                className="group flex gap-0 bg-background border border-[#FF9000]/40 overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="relative w-44 shrink-0 overflow-hidden">
                   <Image
@@ -196,36 +196,36 @@ export default function FormationsPage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-[#0E1F2F]/30" />
+                    <div className="absolute inset-0 bg-[#603C2D]/30" />
                 </div>
                 <div className="flex-1 p-5">
                   <div className="flex items-center gap-2 mb-2">
                     <span className={`text-xs font-bold px-2 py-0.5 ${modeColors[training.mode] ?? "bg-secondary"}`}>
                       {training.mode}
                     </span>
-                    <span className="bg-[#F28C28] text-white text-xs font-bold px-2 py-0.5">À la une</span>
+                    <span className="bg-[#FF9000] text-white text-xs font-bold px-2 py-0.5">À la une</span>
                   </div>
-                  <h3 className="text-base font-bold text-foreground mb-1 leading-snug group-hover:text-[#F28C28] transition-colors text-balance">
+                  <                  h3 className="text-base font-bold text-foreground mb-1 leading-snug group-hover:text-[#FF9000] transition-colors text-balance">
                     {training.title}
                   </h3>
-                  <p className="text-[#F28C28] text-xs font-semibold mb-3">{training.institution}</p>
+                  <p className="text-[#FF9000] text-xs font-semibold mb-3">{training.institution}</p>
                   <div className="space-y-1 text-xs text-muted-foreground">
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-[#F28C28]" />
+                      <MapPin className="w-3.5 h-3.5 text-[#FF9000]" />
                       {training.location}
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-[#F28C28]" />
+                      <Clock className="w-3.5 h-3.5 text-[#FF9000]" />
                       {training.duration}
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <GraduationCap className="w-3.5 h-3.5 text-[#F28C28]" />
+                      <GraduationCap className="w-3.5 h-3.5 text-[#FF9000]" />
                       {training.level}
                     </div>
                   </div>
                   <div className="mt-3 flex items-center justify-between">
                     <span className="text-foreground font-bold text-sm">{training.price}</span>
-                    <span className="text-[#F28C28] text-xs font-semibold flex items-center gap-1">
+                    <span className="text-[#FF9000] text-xs font-semibold flex items-center gap-1">
                       Voir <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
@@ -244,7 +244,7 @@ export default function FormationsPage() {
               <Link
                 key={training.id}
                 href={`/formations/${training.id}`}
-                className="group bg-background border border-border overflow-hidden hover:shadow-lg hover:border-[#F28C28]/40 transition-all"
+                className="group bg-background border border-border overflow-hidden hover:shadow-lg hover:border-[#FF9000]/40 transition-all"
               >
                 <div className="relative h-44 overflow-hidden">
                   <Image
@@ -265,10 +265,10 @@ export default function FormationsPage() {
                   </div>
                 </div>
                 <div className="p-5">
-                  <h4 className="text-sm font-bold text-foreground mb-1 leading-snug group-hover:text-[#F28C28] transition-colors text-balance">
+                  <                  h4 className="text-sm font-bold text-foreground mb-1 leading-snug group-hover:text-[#FF9000] transition-colors text-balance">
                     {training.title}
                   </h4>
-                  <p className="text-[#F28C28] text-xs font-semibold mb-3">{training.institution}</p>
+                  <p className="text-[#FF9000] text-xs font-semibold mb-3">{training.institution}</p>
                   <div className="grid grid-cols-2 gap-y-1 text-xs text-muted-foreground mb-3">
                     <div className="flex items-center gap-1">
                       <MapPin className="w-3 h-3" />{training.location.split(",")[0]}
@@ -285,7 +285,7 @@ export default function FormationsPage() {
                   </div>
                   <div className="border-t border-border pt-3 flex items-center justify-between">
                     <span className="text-foreground font-bold text-sm">{training.price}</span>
-                    <span className="text-[#F28C28] text-xs font-semibold flex items-center gap-1">
+                    <span className="text-[#FF9000] text-xs font-semibold flex items-center gap-1">
                       Voir <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>

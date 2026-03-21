@@ -52,23 +52,23 @@ export function FeaturedInterviews() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-[#0E1F2F]/20" />
+                <div className="absolute inset-0 bg-[#603C2D]/20" />
               </div>
 
               {/* Content */}
               <div className="flex-1 p-6 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="bg-[#F28C28] text-white text-xs font-bold px-2.5 py-0.5 uppercase tracking-wider">
+                    <span className="bg-[#FF9000] text-white text-xs font-bold px-2.5 py-0.5 uppercase tracking-wider">
                       Interview
                     </span>
                     <span className="text-muted-foreground text-xs">{interview.date}</span>
                   </div>
-                  <h3 className="text-lg font-bold text-foreground mb-1 group-hover:text-[#F28C28] transition-colors">
+                  <                  h3 className="text-lg font-bold text-foreground mb-1 group-hover:text-[#FF9000] transition-colors">
                     {interview.topic}
                   </h3>
                   <div className="flex items-start gap-2 mt-3 mb-4">
-                    <Quote className="w-4 h-4 text-[#F28C28] shrink-0 mt-0.5" />
+                    <Quote className="w-4 h-4 text-[#FF9000] shrink-0 mt-0.5" />
                     <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 italic">
                       {interview.quote}
                     </p>
@@ -79,7 +79,7 @@ export function FeaturedInterviews() {
                     <p className="text-sm font-bold text-foreground">{interview.name}</p>
                     <p className="text-muted-foreground text-xs">{interview.role}</p>
                   </div>
-                  <span className="text-[#F28C28] flex items-center gap-1 text-sm font-semibold">
+                  <span className="text-[#FF9000] flex items-center gap-1 text-sm font-semibold">
                     Lire <ArrowRight className="w-4 h-4" />
                   </span>
                 </div>

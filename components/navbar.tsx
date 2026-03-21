@@ -27,7 +27,7 @@ export function Navbar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
 
   return (
-    <header className="w-full bg-[#0E1F2F] sticky top-0 z-50 shadow-md">
+    <header className="w-full bg-[#603C2D] sticky top-0 z-50 shadow-md">
       {/* Top bar */}
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-8">
@@ -35,17 +35,17 @@ export function Navbar() {
             La référence média &amp; business de la construction en Afrique
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/actualites" className="text-white/50 text-xs hover:text-[#F28C28] transition-colors">
+            <Link href="/actualites" className="text-white/50 text-xs hover:text-[#FF9000] transition-colors">
               Newsletters
             </Link>
-            <Link href="/contact" className="text-white/50 text-xs hover:text-[#F28C28] transition-colors">
+            <Link href="/contact" className="text-white/50 text-xs hover:text-[#FF9000] transition-colors">
               Publicité
             </Link>
             <a
               href="http://digiflyagency.ma/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 bg-[#F28C28]/20 border border-[#F28C28]/40 text-[#F28C28] text-xs font-semibold px-2.5 py-0.5 hover:bg-[#F28C28] hover:text-white transition-colors"
+              className="flex items-center gap-1.5 bg-[#FF9000]/20 border border-[#FF9000]/40 text-[#FF9000] text-xs font-semibold px-2.5 py-0.5 hover:bg-[#FF9000] hover:text-white transition-colors"
             >
               <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -62,7 +62,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <div className="flex items-center gap-1.5">
-              <div className="w-8 h-8 bg-[#F28C28] flex items-center justify-center">
+              <div className="w-8 h-8 bg-[#FF9000] flex items-center justify-center">
                 <span className="text-white font-bold text-sm leading-none">B</span>
               </div>
               <span className="text-white font-bold text-xl tracking-wider">BATIMAG</span>
@@ -79,7 +79,7 @@ export function Navbar() {
                   onMouseEnter={() => setOpenDropdown(link.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  <button className="flex items-center gap-1 text-white/80 hover:text-[#F28C28] text-sm font-medium px-3 py-2 transition-colors">
+                  <button                   className="flex items-center gap-1 text-white/80 hover:text-[#FF9000] text-sm font-medium px-3 py-2 transition-colors">
                     {link.label}
                     <ChevronDown className="w-3.5 h-3.5" />
                   </button>
@@ -89,7 +89,7 @@ export function Navbar() {
                         <Link
                           key={child.href}
                           href={child.href}
-                          className="block px-4 py-2.5 text-sm text-foreground hover:bg-secondary hover:text-[#F28C28] border-b border-border last:border-0 transition-colors"
+                          className="block px-4 py-2.5 text-sm text-foreground hover:bg-secondary hover:text-[#FF9000] border-b border-border last:border-0 transition-colors"
                         >
                           {child.label}
                         </Link>
@@ -101,7 +101,7 @@ export function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-white/80 hover:text-[#F28C28] text-sm font-medium px-3 py-2 transition-colors"
+                  className="text-white/80 hover:text-[#FF9000] text-sm font-medium px-3 py-2 transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -113,7 +113,7 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <Link
               href="/emplois"
-              className="hidden md:inline-flex items-center bg-[#F28C28] text-white text-sm font-semibold px-4 py-2 hover:bg-orange-600 transition-colors"
+              className="hidden md:inline-flex items-center bg-[#FF9000] text-white text-sm font-semibold px-4 py-2 hover:bg-orange-600 transition-colors"
             >
               Offres d'emploi
             </Link>
@@ -130,12 +130,12 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-[#0E1F2F] border-t border-white/10 px-4 py-4">
+        <div className="lg:hidden bg-[#603C2D] border-t border-white/10 px-4 py-4">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="block text-white/80 hover:text-[#F28C28] text-sm font-medium py-2.5 border-b border-white/10 last:border-0 transition-colors"
+              className="block text-white/80 hover:text-[#FF9000] text-sm font-medium py-2.5 border-b border-white/10 last:border-0 transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               {link.label}

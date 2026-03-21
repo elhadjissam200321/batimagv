@@ -37,8 +37,8 @@ const trainings = [
 ]
 
 const modeColors: Record<string, string> = {
-  Présentiel: "bg-[#0E1F2F] text-white",
-  "E-learning": "bg-[#F28C28] text-white",
+  Présentiel: "bg-[#603C2D] text-white",
+  "E-learning": "bg-[#FF9000] text-white",
   Hybride: "bg-secondary text-foreground border border-border",
 }
 
@@ -75,10 +75,10 @@ export function TrainingsPreview() {
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <GraduationCap className="w-4 h-4 text-[#F28C28]" />
-                  <span className="text-[#F28C28] text-xs font-semibold">{training.level}</span>
+                  <GraduationCap className="w-4 h-4 text-[#FF9000]" />
+                  <span className="text-[#FF9000] text-xs font-semibold">{training.level}</span>
                 </div>
-                <h4 className="text-sm font-bold text-foreground mb-1 leading-snug group-hover:text-[#F28C28] transition-colors text-balance">
+                <                h4 className="text-sm font-bold text-foreground mb-1 leading-snug group-hover:text-[#FF9000] transition-colors text-balance">
                   {training.title}
                 </h4>
                 <p className="text-muted-foreground text-xs mb-3">{training.institution}</p>
